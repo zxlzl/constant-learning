@@ -1,11 +1,12 @@
 <template>
   <div>
-    <input :value="value" @input="onInput" v-bind="attrs">
+    <input :value="value" @input="onInput" v-bind="$attrs">
   </div>
 </template>
 
 <script>
 export default {
+  inheritAttrs: false,
   props: {
     value: {
       type: String,

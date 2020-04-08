@@ -30,8 +30,8 @@ export default {
   },
   methods: {
     validate() {
-      const rules = this.from.rules[this.prop]
-      const value = this.from.model[this.prop]
+      const rules = this.form.rules[this.prop]
+      const value = this.form.model[this.prop]
 
       const validator = new Schema({[this.prop]: rules})
 

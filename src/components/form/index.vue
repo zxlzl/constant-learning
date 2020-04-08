@@ -1,60 +1,53 @@
 <template>
   <div>
-    <!-- <ElementTest></ElementTest> -->
-    <!-- 设置数据模型和校验规则 -->
-    <KForm :model="model" :rules="rules" ref="loginForm">
-      <KFormItem label="用户名" prop="username">
-        <KInput v-model="model.username" placeholder="请输入用户名"></KInput>
-      </KFormItem>
-      <KFormItem label="密码" prop="password">
-        <KInput v-model="model.password" type="password" placeholder="请输入密码"></KInput>
-      </KFormItem>
-      <KFormItem>
-        <button @click="onLogin">登录</button>
-      </KFormItem>
-    </KForm>
+    <h3>Form表单</h3>
+    <hr />
+    <Form :model="model" :rules="rul" ref="loginForm">
+      <FormItem label="用户名" prop="username">
+        <Input v-model="model.username" />
+      </FormItem>
+      <FormItem label="密码" prop="password">
+        <Input type="password" v-model="model.password" />
+      </FormItem>
+      <FormItem >
+        <button @click="submit">登录</button>
+      </FormItem>
+    </Form>
   </div>
 </template>
 
 <script>
-import ElementTest from "@/components/form/ElementTest.vue";
-import KInput from "@/components/form/KInput.vue";
-import KFormItem from "@/components/form/KFormItem.vue";
-import KForm from "@/components/form/KForm.vue";
+import Input from "./Input";
+import FormItem from "./FormItem";
+import Form from "./Form";
 import Notice from '@/components/Notice.vue';
 
 export default {
   components: {
-    ElementTest,
-    KInput,
-    KFormItem,
-    KForm
+    Input,
+    FormItem,
+    Form,
+    Notice
   },
   data() {
     return {
-      model: {
-        username: "",
-        password: ""
-      },
-      rules: {
-        username: [{ required: true, message: "请输入用户名称" }],
+      model: { username: "zxl", password: "" },
+      rul: {
+        username: [{ required: true, message: "请输入用户名" }],
         password: [{ required: true, message: "请输入密码" }]
       }
     };
   },
   methods: {
-    onLogin() {
-      // 全局校验
-      this.$refs.loginForm.validate(isValid => {
-        if (isValid) {
-          console.log('submit login!');
-          
-        }else {
-          // alert('校验失败')
-          this.$create(Notice, {
-            title: '校验失败',
-            message: '校验错误，请重试！',
-            duration: 3000
+    submit() {
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          alert('请求成功')
+        } else {
+          this.$create(Notice,{
+            title: '效验失败',
+            message: '失败，请检查表单信息',
+            duration :3000
           }).show()
         }
       })
@@ -63,5 +56,5 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 </style>
