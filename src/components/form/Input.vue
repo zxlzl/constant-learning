@@ -5,8 +5,12 @@
 </template>
 
 <script>
+import emiiter from "../../mixins/emitter";
+
 export default {
   inheritAttrs: false,
+  componentName: 'Input',
+  mixins: [emitter],
   props: {
     value: {
       type: String,
