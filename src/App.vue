@@ -1,5 +1,11 @@
 <template>
   <div id="app">
+    <div id="nav">
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">about</router-link>
+    </div>
+    <router-view></router-view>
+
     <!-- <img src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App" @click="onClick"/>
     <HelloWorld msg="Welcome to Your Vue.js App" ref="hw2">
@@ -8,7 +14,10 @@
     </HelloWorld> -->
     <!-- <communication></communication> -->
     <!-- <slot-example></slot-example> -->
-    <form-example></form-example>
+    <!-- <form-example></form-example> -->
+    <!-- <tree-test></tree-test> -->
+    <!-- <NodeTest></NodeTest> -->
+    
   </div>
 </template>
 
@@ -16,7 +25,9 @@
 import HelloWorld from './components/HelloWorld.vue'
 import communication from '@/components/communication';
 import SlotExample from '@/components/slots'
+import TreeTest from '@/components/recursion';
 import FormExample from '@/components/form'
+import NodeTest from '@/components/recursion/NodeTest.vue';
 
 export default {
   name: 'app',
@@ -31,7 +42,9 @@ export default {
     HelloWorld,
     communication,
     SlotExample,
-    FormExample
+    FormExample,
+    NodeTest,
+    TreeTest
   },
   mounted () {
     // this.$children[0].xx = 'ooooooooxxxxxxxxx';

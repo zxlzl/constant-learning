@@ -1,6 +1,8 @@
 <template>
   <div class="box" v-if="isShow">
     <h3>{{title}}</h3>
+
+    hehe
     <p class="box-content">{{message}}</p>
   </div>
 </template>
@@ -10,7 +12,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: ""
+      default: "" 
     },
     message: {
       type: String,
