@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import emitter from "@mixins/emitter";
+import emitter from "../../mixins/emitter";
 export default {
   inheritAttrs: false,
   componentName: "Input",
@@ -21,7 +21,7 @@ export default {
       this.$emit("input", e.target.value);
 
       this.dispatch('FormItem','validate')
-      this.$parent.$emit('validate')
+      // this.$parent.$emit('validate')
     }
   }
 };

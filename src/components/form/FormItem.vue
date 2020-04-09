@@ -8,7 +8,7 @@
 
 <script>
 import Schema from "async-validator";
-import emitter from "@mixins/emitter";
+import emitter from "../../mixins/emitter";
 
 export default {
   inject: ["form"],
@@ -19,7 +19,6 @@ export default {
       error: ""
     };
   },
-
   props: {
     label: {
       type: String,

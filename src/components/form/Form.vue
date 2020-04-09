@@ -14,6 +14,11 @@ export default {
       form: this
     };
   },
+  data() {
+    return {
+      fields: []
+    }
+  },
   props: {
     model: {
       type: Object,
@@ -22,9 +27,9 @@ export default {
     rules: Object
   },
   created() {
-    const fields = [];
+    this.fields = [];
 
-    this.on("form.addFiled", item => {
+    this.$on("form.addFiled", item => {
       this.fields.push(item);
     });
   },
