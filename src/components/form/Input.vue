@@ -1,31 +1,31 @@
 <template>
   <div>
-    <input :value="value" @input="onInput" v-bind="$attrs">
+    <input :value="value" @input="onInput" v-bind="$attrs" />
   </div>
 </template>
 
 <script>
-import emiiter from "../../mixins/emitter";
-
+import emitter from "@mixins/emitter";
 export default {
   inheritAttrs: false,
-  componentName: 'Input',
+  componentName: "Input",
   mixins: [emitter],
   props: {
     value: {
       type: String,
-      default: ''
-    },
+      default: ""
+    }
   },
   methods: {
     onInput(e) {
-      this.$emit('input', e.target.value)
+      this.$emit("input", e.target.value);
+
+      this.dispatch('FormItem','validate')
       this.$parent.$emit('validate')
     }
-  },
-}
+  }
+};
 </script>
 
 <style>
-
 </style>
