@@ -12,8 +12,9 @@ import './App.css';
 // import HomePage from "./pages/HomePage"
 // import UserPage from "./pages/UserPage"
 // import CompositionPage from "./pages/CompositionPage"
-import ReduxPage from "./pages/ReduxPage"
-import ReactReduxPage from "./pages/ReactReduxPage"
+// import ReduxPage from "./pages/ReduxPage"
+// import ReactReduxPage from "./pages/ReactReduxPage"
+import RouterPage from "./pages/RouterPage"
 
 
 function App() {
@@ -27,7 +28,8 @@ function App() {
       {/* <UserPage></UserPage> */}
       {/* <CompositionPage></CompositionPage> */}
       {/* <ReduxPage></ReduxPage> */}
-      <ReactReduxPage></ReactReduxPage>
+      {/* <ReactReduxPage></ReactReduxPage> */}
+      <RouterPage></RouterPage>
     </div>
   );
 }
