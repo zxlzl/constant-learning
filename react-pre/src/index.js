@@ -3,14 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import store from './store/ReduxStore'
+import store from './store'
+import { Provider } from 'react-redux'
 
-store.subscribe(() => {
-  ReactDOM.render(<App />,
-    document.querySelector('#root'))
-})
+// store.subscribe(() => {
+//   ReactDOM.render(<App />,
+//     document.querySelector('#root'))
+// })
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>
+  ,
   document.getElementById('root')
 );
 

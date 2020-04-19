@@ -13,6 +13,7 @@ import './App.css';
 // import UserPage from "./pages/UserPage"
 // import CompositionPage from "./pages/CompositionPage"
 import ReduxPage from "./pages/ReduxPage"
+import ReactReduxPage from "./pages/ReactReduxPage"
 
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
       {/* <HomePage></HomePage> */}
       {/* <UserPage></UserPage> */}
       {/* <CompositionPage></CompositionPage> */}
-      <ReduxPage></ReduxPage>
+      {/* <ReduxPage></ReduxPage> */}
+      <ReactReduxPage></ReactReduxPage>
     </div>
   );
 }

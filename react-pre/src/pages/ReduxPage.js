@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import store from "../store/ReduxStore";
+import store from "../store";
 
 export default class ReduxPage extends Component {
   componentDidMount() {
