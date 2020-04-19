@@ -16,8 +16,8 @@ import './App.css';
 // import ReactReduxPage from "./pages/ReactReduxPage"
 // import RouterPage from "./pages/RouterPage"
 // import PureComponentPage from "./pages/PureComponentPage"
-import HookPage from "./pages/HookPage"
-
+// import HookPage from "./pages/HookPage"
+import CustomHookPage from "./pages/CustomHookPage"
 
 function App() {
   return (
@@ -33,7 +33,8 @@ function App() {
       {/* <ReactReduxPage></ReactReduxPage> */}
       {/* <RouterPage></RouterPage> */}
       {/* <PureComponentPage></PureComponentPage> */}
-      <HookPage></HookPage>
+      {/* <HookPage></HookPage> */}
+      <CustomHookPage></CustomHookPage>
     </div>
   );
 }
