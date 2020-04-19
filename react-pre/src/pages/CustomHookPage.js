@@ -3,13 +3,17 @@ import React, { useState, useEffect } from 'react'
 export default function CustomHookPage() {
   const [count, setCount] = useState(0)
   const [date, setDate] = useState(new Date())
+
+  //报错，hook只能在最外层使用
+  // if(count==0){
+  //   const [a,seta] =useState(1)
+  // }
+
   // componentDidMount 、componentDidUpdate
   useEffect(() => {
     console.log('effect count');
     // 只需要在count发生改变执行
     document.title = `点击了${count}次`
-
-
   }, [count])
 
   useEffect(() => {
@@ -32,6 +36,11 @@ export default function CustomHookPage() {
     </div>
   )
 }
+
+// 报错，非react函数组件、非自己定义hook
+// function getNum(){
+//   const [date, setDate] = useState(new Date());
+// }
 
 // 自定义hook，命名use开头
 function useClock() {
