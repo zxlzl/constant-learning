@@ -5,8 +5,8 @@ import store from "../store/ReduxStore";
 export default class ReduxPage extends Component {
   componentDidMount() {
     store.subscribe(() => {
-      console.log("subscribe"); 
-      this.forceUpdate(); //this.setState({});
+      // this.forceUpdate(); 
+      // this.setState({});
     });
   }
   add = () => {
