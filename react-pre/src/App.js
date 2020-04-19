@@ -16,6 +16,7 @@ import './App.css';
 // import ReactReduxPage from "./pages/ReactReduxPage"
 // import RouterPage from "./pages/RouterPage"
 import PureComponentPage from "./pages/PureComponentPage"
+import HookPage from "./pages/HookPage"
 
 
 function App() {
@@ -31,7 +32,8 @@ function App() {
       {/* <ReduxPage></ReduxPage> */}
       {/* <ReactReduxPage></ReactReduxPage> */}
       {/* <RouterPage></RouterPage> */}
-      <PureComponentPage></PureComponentPage>
+      {/* <PureComponentPage></PureComponentPage> */}
+      <HookPage></HookPage>
     </div>
   );
 }
