@@ -14,7 +14,8 @@ import './App.css';
 // import CompositionPage from "./pages/CompositionPage"
 // import ReduxPage from "./pages/ReduxPage"
 // import ReactReduxPage from "./pages/ReactReduxPage"
-import RouterPage from "./pages/RouterPage"
+// import RouterPage from "./pages/RouterPage"
+import PureComponentPage from "./pages/PureComponentPage"
 
 
 function App() {
@@ -29,7 +30,8 @@ function App() {
       {/* <CompositionPage></CompositionPage> */}
       {/* <ReduxPage></ReduxPage> */}
       {/* <ReactReduxPage></ReactReduxPage> */}
-      <RouterPage></RouterPage>
+      {/* <RouterPage></RouterPage> */}
+      <PureComponentPage></PureComponentPage>
     </div>
   );
 }
