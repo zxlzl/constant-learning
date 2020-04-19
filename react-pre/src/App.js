@@ -15,7 +15,7 @@ import './App.css';
 // import ReduxPage from "./pages/ReduxPage"
 // import ReactReduxPage from "./pages/ReactReduxPage"
 // import RouterPage from "./pages/RouterPage"
-import PureComponentPage from "./pages/PureComponentPage"
+// import PureComponentPage from "./pages/PureComponentPage"
 import HookPage from "./pages/HookPage"
 
 
