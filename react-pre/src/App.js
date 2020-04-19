@@ -17,7 +17,10 @@ import './App.css';
 // import RouterPage from "./pages/RouterPage"
 // import PureComponentPage from "./pages/PureComponentPage"
 // import HookPage from "./pages/HookPage"
-import CustomHookPage from "./pages/CustomHookPage"
+// import CustomHookPage from "./pages/CustomHookPage"
+import UseMemoPage from "./pages/UseMemoPage"
+import UseCallbackPage from "./pages/UseCallbackPage"
+
 
 function App() {
   return (
@@ -34,7 +37,9 @@ function App() {
       {/* <RouterPage></RouterPage> */}
       {/* <PureComponentPage></PureComponentPage> */}
       {/* <HookPage></HookPage> */}
-      <CustomHookPage></CustomHookPage>
+      {/* <CustomHookPage></CustomHookPage> */}
+      {/* <UseMemoPage></UseMemoPage> */}
+      <UseCallbackPage></UseCallbackPage>
     </div>
   );
 }
