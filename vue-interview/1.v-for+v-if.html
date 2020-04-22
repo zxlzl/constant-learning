@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="demo">
+    <h1>v-if和v-for优先级</h1>
+    <p v-for="item in items" v-if="isFolder" :key="item.id">
+      {{ item.title }}
+    </p>
+    <!-- <template v-if="isFolder">
+      <p v-for="item in items" :key="item.id">
+        {{ item.title }}
+      </p>
+    </template> -->
+  </div>
+  <script>
+    const app = new Vue({
+      el: '#demo',
+      data() {
+        return {
+          items: [
+            { title: 'foo' }, { title: 'bar' }
+          ]
+        }
+      },
+      computed: {
+        isFolder() {
+          return this.items && this.items.length > 0
+        }
+      },
+    })
+    console.log(app.$options.render);
+  </script>
+</body>
+
+</html>
+
+<!-- 结论 -->
+<!-- v-for优先级高于v-if
+同时出现都会先执行循环再判断条件，循环不可避免，浪费性能
+避免这种情况，在外层嵌套v-if，内层进行v-for
+如果在单项内给出是否展示条件，可以通过计算属性先得到需要展示的项 -->

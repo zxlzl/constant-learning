@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- <script src="./vue.js"></script> -->
+</head>
+
+<body>
+  <div id="demo">
+    <h1>vue组件的data为什么必须是函数而vue根实例没有这个限制</h1>
+    <comp></comp>
+    <comp></comp>
+<p>{{counter}}</p>
+  </div>
+  <script>
+    Vue.component('comp', {
+      template: '<div @click="counter++">{{counter}}</div>',
+      data() {
+        return {
+          counter: 0
+        }
+      },
+    })
+    const app = new Vue({
+      el: '#demo',
+      data: { counter: 1 }
+    })
+  </script>
+</body>
+
+</html>
+
+<!-- https://github.com/vuejs/vue/blob/dev/src/core/instance/state.js -->
+<!-- https://github.com/vuejs/vue/blob/dev/src/core/util/options.js -->
+<!-- 多实例的状态下不相互污染 -->
+
+<!-- vue组件可能存在多个实例，如果对象形式定义data，会导致他们共用一个data对象，那么状态变更将会影响所有的组件实例，不合理；
+采用函数形式定义，在initData的时候会将其作为工厂函数返回全新的data对象，有效规避多实例之间的状态污染问题。
+而vue根实例创建过程中不存在该限制，也是因为根实例只能有一个 -->
