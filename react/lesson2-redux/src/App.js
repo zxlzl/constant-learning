@@ -1,11 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+
+import ReduxPage from './pages/ReduxPage'
 
 function App() {
   return (
     <div className="App">
-      <h3>app</h3>
+      <h3> app </h3>
+      <ReduxPage />
     </div>
   );
 }
