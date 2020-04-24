@@ -1,4 +1,5 @@
-import { createStore } from "redux";
+// import { createStore } from "redux";
+import { createStore } from "../zredux";
 
 function counter(state = 0, {type,payload=10}) {
   switch (type) {
@@ -7,6 +8,7 @@ function counter(state = 0, {type,payload=10}) {
     case "MINUS":
       return state - payload;
     default:
+      console.log(state);
       return state
   }
 }

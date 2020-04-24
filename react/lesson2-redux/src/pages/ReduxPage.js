@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import store from "../store/";
 
+
 export default class ReduxPage extends Component {
   test = () => {
     const arr = [1, 2, 3, 5];
@@ -27,7 +28,6 @@ export default class ReduxPage extends Component {
     let res = compose(f1, f2, f3)("img");
   };
 
-
   componentDidMount() {
     store.subscribe(()=>{
       this.forceUpdate()
@@ -35,7 +35,7 @@ export default class ReduxPage extends Component {
   }
 
   add = () => {
-    store.dispatch({type: 'ADD', payload:1} )
+    store.dispatch({type: 'ADD', payload:1})
   }
 
   render() {
