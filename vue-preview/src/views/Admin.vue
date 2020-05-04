@@ -73,17 +73,16 @@ export default {
   },
   activated() {
     console.log('activated');
-    
   },
   deactivated() {
     console.log('deactivated');
   },
-  beforeRouteEnter(to, from, next) {
-    if (window.isLogin) {
-      next();
-    } else {
-      next("/login?redirect=" + to.fullPath);
-    }
-  }
+  // beforeRouteEnter(to, from, next) {
+  //   if (window.isLogin) {
+  //     next();
+  //   } else {
+  //     next("/login?redirect=" + to.fullPath);
+  //   }
+  // }
 };
 </script>

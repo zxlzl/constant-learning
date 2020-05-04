@@ -10,16 +10,18 @@
       </span>-->
     </nav>
 
-    <form-test></form-test>
+    <!-- <form-test></form-test> -->
 
     <!-- 路由出口 -->
-    <router-view></router-view>
+    <keep-alive :include="['admin']" max="10">
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from "vuex";
-import FormTest from "@/components/FormTest.vue";
+// import FormTest from "@/components/FormTest.vue";
 export default {
   name: "app",
   computed: {
@@ -27,7 +29,7 @@ export default {
     ...mapGetters("user", ["welcome"])
   },
   components: {
-    FormTest
+    // FormTest
   }
 };
 </script>
