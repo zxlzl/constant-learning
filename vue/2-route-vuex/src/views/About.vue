@@ -5,7 +5,9 @@
     <!-- store类有commit方法可以执行mutation -->
     <p @click="$store.commit('add')">{{$store.state.count}}</p>
     <p @click="$store.dispatch('asyncAdd')">async:{{$store.state.count}}</p>
-    <!-- <p>{{$store.getters.doubleCount}}</p> -->
+    <p>double count：{{$store.getters.doubleCount}}</p>
+
+    <router-view></router-view>
   </div>
 </template>
 
