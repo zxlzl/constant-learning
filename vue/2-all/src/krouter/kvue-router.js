@@ -1,13 +1,16 @@
+import Link from './krouter-link'
+import View from './krouter-view'
+
 // 1、实现一个插件：挂载$router，声明两个全局组件
-// 2、实现一个ZVueRouter类，管理url变化
+// 2、实现一个KVueRouter类，管理url变化
 
 let Vue;
 
-class ZVueRouter{
+class KVueRouter{
 
 }
 
-ZVueRouter.install = function(_Vue) {
+KVueRouter.install = function(_Vue) {
   // 保存构造函数
   Vue=_Vue
   // 挂载$router
@@ -22,6 +25,10 @@ ZVueRouter.install = function(_Vue) {
     }
   })
 
+  // 声明两个全局组件
+  Vue.component('router-link',Link)
+  Vue.component('router-view',View)
+
 }
 
-export default ZVueRouter
+export default KVueRouter
