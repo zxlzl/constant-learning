@@ -73,10 +73,11 @@ export default {
   },
   activated() {
     console.log('activated');
+    
   },
   deactivated() {
     console.log('deactivated');
-  },
+  }
   // beforeRouteEnter(to, from, next) {
   //   if (window.isLogin) {
   //     next();

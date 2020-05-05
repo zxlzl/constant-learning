@@ -34,6 +34,21 @@ const router = new VueRouter({
   routes
 })
 
+// 全局守卫
+// router.beforeEach((to, from, next) => {
+//   // 判断路由是否需要守卫
+//   // meta数据
+//   if (to.meta.auth) {
+//     // 是否登录
+//     if (window.isLogin) {
+//       next()
+//     } else {
+//       next('/login?redirect='+to.fullPath)
+//     }
+//   } else {
+//     next()
+//   }
+// })
 
 let hasAddAuthRoute = false;
 

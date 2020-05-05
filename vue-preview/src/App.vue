@@ -4,16 +4,16 @@
       <router-link to="/">首页</router-link>
       <router-link to="/admin">管理</router-link>
 
-      <!-- <span v-if="isLogin">
+      <span v-if="isLogin">
         {{welcome}}
         <button>注销</button>
-      </span>-->
+      </span>
     </nav>
 
     <!-- <form-test></form-test> -->
 
     <!-- 路由出口 -->
-    <keep-alive :include="['admin']" max="10">
+    <keep-alive include="admin">
       <router-view></router-view>
     </keep-alive>
   </div>
@@ -35,9 +35,9 @@ export default {
 </script>
 
 <style lang="scss">
-// a {
-//   color: $color;
-// }
+a {
+  color: $color;
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
