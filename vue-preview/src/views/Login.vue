@@ -10,43 +10,53 @@
 export default {
   methods: {
     login() {
-      window.isLogin = true;
+      // window.isLogin = true;
+      // 提交mutation
+      // this.$store.commit("login");
+      // 派发动作触发actions
+      this.$store.dispatch("login", "admin").then(() => {
+        this.$router.addRoutes([
+          {
+            path: "/admin",
+            name: "admin",
+            component: () => import("../views/Admin.vue"),
+            children: [
+              {
+                path: "/admin/course/:name",
+                name: "detail",
+                component: () => import("../views/Detail.vue")
+              }
+            ],
+            meta: {
+              auth: true
+            }
+            // beforeEnter(to, from, next) {
+            //   if (window.isLogin) {
+            //     next()
+            //   } else {
+            //     next('/login?redirect='+to.fullPath)
+            //   }
+            // }
+          }
+        ]);
+        this.$router.push(this.$route.query.redirect);
+      }).catch(()=>{
+        alert('出错 重试')
+      });
 
       // 动态添加路由
-      this.$router.addRoutes([
-        {
-          path: "/admin",
-          name: "admin",
-          component: () => import("../views/Admin.vue"),
-          children: [
-            {
-              path: "/admin/course/:name",
-              name: "detail",
-              component: () => import("../views/Detail.vue")
-            }
-          ],
-          meta: {
-            auth: true
-          }
-          // beforeEnter(to, from, next) {
-          //   if (window.isLogin) {
-          //     next()
-          //   } else {
-          //     next('/login?redirect='+to.fullPath)
-          //   }
-          // }
-        }
-      ]);
-      this.$router.push(this.$route.query.redirect);
+
+      
     },
     logout() {
-      window.isLogin = false;
+      // window.isLogin = false;
+      this.$store.commit("logout");
       this.$router.push("/");
     }
   },
   computed: {
     isLogin() {
-      return window.isLogin;
+      return this.$store.state.isLogin;
     }
   }
 };
