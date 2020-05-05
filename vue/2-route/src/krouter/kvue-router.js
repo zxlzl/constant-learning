@@ -7,7 +7,28 @@ import View from './krouter-view'
 let Vue;
 
 class KVueRouter{
+  constructor(options){
+    // 保存选项
+    this.$options = options
+    //设置响应式的current属性
+    // new Vue({data:{}})
+    Vue.util.defineReactive(this,'current','/')
 
+    // hashchange
+    window.addEventListener('hashchange',this.onHashChange.bind(this))
+    window.addEventListener('load',this.onHashChange.bind(this))
+
+    // 对路由数组预处理：转换为map
+    this.routeMap = {}
+    this.$options.routes.forEach(route => {
+      this.routeMap[route.path]=route
+    });
+  }
+
+  onHashChange(){
+    // #/about
+    this.current = window.location.hash.slice(1)
+  }
 }
 
 KVueRouter.install = function(_Vue) {
