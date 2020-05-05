@@ -10,7 +10,33 @@ class Store {
 
     this._actions = options.actions;
 
-    x
+    this._wrappedGetters = options.getters;
+    // 定义computed选项
+    const computed = {};
+    this.getters = {};
+    const store = this;
+    Object.keys(this._wrappedGetters).forEach((key) => {
+      // 获取用户定义的getter
+      const fn = store._wrappedGetters[key];
+      // 转换为computed可以使用的无参数形式
+      computed[key]=function(){
+        return fn(store.state)
+      }
+      // 为getters定义只读属性
+      Object.defineProperty(store.getters,key,{
+        get:()=>store._vm[key]
+      })
+    });
+
+    // 只要放到data上，即成为响应式数据
+    // vm.data.xx vm.count
+    this._vm = new Vue({
+      data: {
+        count: 0,
+        $$state: options.state,
+      },
+      computed
+    });
 
     // 绑定commit、dispatch方法中的this到Store实例
     // const store = this;
