@@ -17,7 +17,6 @@ const routes = [
     name: 'login',
     component: () => import('../views/Login.vue')
   },
-  
   {
     path: '/course/:name',
     component: () => import('../views/Detail.vue')
@@ -34,28 +33,6 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
-// 全局守卫
-router.beforeEach((to, from, next) => {
-  // 判断逻辑：
-  // 是否登陆
-  if (store.state.isLogin) {
-    // 是否登录
-    if (to.path === '/login') {
-      next('/')
-    } else {
-      next()
-    }
-  } else {
-    // 没有登陆
-    if (to.path === '/login') {
-      next()
-    } else {
-      next('/login?redirect='+to.fullPath)
-    }
-  }
-})
-
 
 
 let hasAddAuthRoute = false;
@@ -86,30 +63,30 @@ export function addAuthRoute() {
 
 }
 
-// router.beforeEach((to, from, next) => {
-//   // 判断逻辑：
-//   if (store.state.user.isLogin) {
-//     // 可能是缓存登录状态，执行一下路由添加
-//     addAuthRoute()
+router.beforeEach((to, from, next) => {
+  // 判断逻辑：
+  if (store.state.user.isLogin) {
+    // 可能是缓存登录状态，执行一下路由添加
+    addAuthRoute()
 
-//     // 已登录
-//     if (to.path === '/login') {
-//       // 已登录没必要去登录页，重定向至首页
-//       next('/')
-//     } else {
-//       // 去其他页放行
-//       next()
-//     }
-//   } else {
-//     // 没有登录
-//     if (to.path === '/login') {
-//       // 要去登录页就直接放行
-//       next()
-//     } else {
-//       // 否则重定向到登录页
-//       next('/login?redirect=' + to.fullPath)
-//     }
-//   }
-// })
+    // 已登录
+    if (to.path === '/login') {
+      // 已登录没必要去登录页，重定向至首页
+      next('/')
+    } else {
+      // 去其他页放行
+      next()
+    }
+  } else {
+    // 没有登录
+    if (to.path === '/login') {
+      // 要去登录页就直接放行
+      next()
+    } else {
+      // 否则重定向到登录页
+      next('/login?redirect=' + to.fullPath)
+    }
+  }
+})
 
 export default router

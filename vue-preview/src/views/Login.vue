@@ -7,14 +7,17 @@
 </template>
 
 <script>
+
+import {mapState,mapActions} from 'vuex'
 export default {
   methods: {
     login() {
       // window.isLogin = true;
       // 提交mutation
-      // this.$store.commit("login");
+      // this.$store.commit("user/login");
       // 派发动作触发actions
-      this.$store.dispatch("login", "admin").then(() => {
+      // this.$store.dispatch("user/login", "admin").then(() => {
+      this["user/login"]("admin").then(() => {
         this.$router.addRoutes([
           {
             path: "/admin",
@@ -39,9 +42,10 @@ export default {
             // }
           }
         ]);
+
         this.$router.push(this.$route.query.redirect);
-      }).catch(()=>{
-        alert('出错 重试')
+      }).catch(() => {
+        alert('用户名或密码错误，请重试！')
       });
 
       // 动态添加路由
@@ -50,14 +54,16 @@ export default {
     },
     logout() {
       // window.isLogin = false;
-      this.$store.commit("logout");
+      this.$store.commit("user/logout");
       this.$router.push("/");
-    }
+    },
+    ...mapActions(['user/login','user/logout'])
   },
   computed: {
-    isLogin() {
-      return this.$store.state.isLogin;
-    }
+    // isLogin() {
+    //   return this.$store.state.user.isLogin;
+    // },
+    ...mapState('user',['isLogin'])
   }
 };
 </script>
