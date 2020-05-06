@@ -25,6 +25,9 @@ function defineReactive(obj, key, val) {
         observe(newVal);
         // console.log("set", key, newVal);
         val = newVal;
+
+        // 更新
+        watchers.forEach(w=>w.update())
       }
     },
   });
@@ -118,9 +121,29 @@ class Complie {
     return node.nodeType === 3 && /\{\{(.*)\}\}/.test(node.textContent);
   }
 
+  // 更新方法
+  update(node, exp, dir) {
+    // 检查是否存在实操函数
+    const fn = this[dir + "Updater"];
+    // 初始化
+    fn && fn(node, this.$vm[exp]);
+    // 更新
+    new Watch(this.$vm, exp, function (val) {
+      fn && fn(node, val);
+    });
+  }
+
+  // 实操函数
+  textUpdater(node,val) {
+    // 具体操作
+    node.textContent = val
+
+  }
+
   // 编译插值文本，初始化
   compileText(node) {
-    node.textContent = this.$vm[RegExp.$1];
+    // node.textContent = this.$vm[RegExp.$1];
+    this.update(node, RegExp.$1, "text");
   }
 
   // 编译元素节点：判断他的属性是否是k-xx，@xx
@@ -147,11 +170,33 @@ class Complie {
   // k-text指令执行
   text(node, exp) {
     console.log(this.$vm);
-    
+
     node.textContent = this.$vm[exp];
   }
 
-  html(node,exp){
-    node.innerHTML = this.$vm[exp]
+  html(node, exp) {
+    // node.innerHTML = this.$vm[exp];
+    this.update(node,exp,'html')
+  }
+
+  htmlUpdater(node,val){
+    node.innerHTML = val;
+
+  }
+}
+
+// Watcher: 和模板中的依赖1对1对应，如果某个key发生变化则执行更新函数
+const watchers = []
+class Watch {
+  constructor(vm, key, updater) {
+    this.vm = vm;
+    this.key = key;
+    this.updater = updater;
+    watchers.push(this)
+  }
+
+  // 更新方法让Dep调用，
+  update() {
+    this.updater.call(this.vm, this.vm[this.key]);
   }
 }
