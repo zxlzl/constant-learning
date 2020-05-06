@@ -53,7 +53,7 @@ class Observer {
     this.walk(value);
   }
 
-  walk() {
+  walk(obj) {
     Object.keys(obj).forEach((key) => {
       defineReactive(obj, key, obj[key]);
     });
