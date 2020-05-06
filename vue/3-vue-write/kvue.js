@@ -12,10 +12,15 @@ function observe(obj) {
 function defineReactive(obj, key, val) {
   //递归遍历，如果val本身是对象
   observe(val);
+
+  // 创建dep实例 和key一一对应
+  const dep = new Dep();
   Object.defineProperty(obj, key, {
     get() {
       // 读拦截
       // console.log("get", key, val);
+      // 依赖收集
+      Dep.target && dep.addDep(Dep.target)
       return val;
     },
     set(newVal) {
@@ -27,7 +32,8 @@ function defineReactive(obj, key, val) {
         val = newVal;
 
         // 更新
-        watchers.forEach(w=>w.update())
+        // watchers.forEach((w) => w.update());
+        dep.notify()
       }
     },
   });
@@ -128,16 +134,15 @@ class Complie {
     // 初始化
     fn && fn(node, this.$vm[exp]);
     // 更新
-    new Watch(this.$vm, exp, function (val) {
+    new Watcher(this.$vm, exp, function (val) {
       fn && fn(node, val);
     });
   }
 
   // 实操函数
-  textUpdater(node,val) {
+  textUpdater(node, val) {
     // 具体操作
-    node.textContent = val
-
+    node.textContent = val;
   }
 
   // 编译插值文本，初始化
@@ -169,30 +174,47 @@ class Complie {
 
   // k-text指令执行
   text(node, exp) {
-    console.log(this.$vm);
+    // console.log(this.$vm);
 
-    node.textContent = this.$vm[exp];
+    // node.textContent = this.$vm[exp];
+    this.update(node,exp,'text')
   }
 
   html(node, exp) {
     // node.innerHTML = this.$vm[exp];
-    this.update(node,exp,'html')
+    this.update(node, exp, "html");
   }
 
-  htmlUpdater(node,val){
+  htmlUpdater(node, val) {
     node.innerHTML = val;
+  }
+}
 
+// Dep：管理所有的watcher
+class Dep {
+  constructor() {
+    this.watchers = [];
+  }
+
+  addDep(watcher) {
+    this.watchers.push(watcher);
+  }
+
+  notify() {
+    this.watchers.forEach((w) => w.update());
   }
 }
 
 // Watcher: 和模板中的依赖1对1对应，如果某个key发生变化则执行更新函数
-const watchers = []
-class Watch {
+class Watcher {
   constructor(vm, key, updater) {
     this.vm = vm;
     this.key = key;
     this.updater = updater;
-    watchers.push(this)
+    // 和Dep建立关系
+    Dep.target = this;
+    this.vm[this.key] // 触发get 可以做依赖收集
+    Dep.target = null
   }
 
   // 更新方法让Dep调用，
