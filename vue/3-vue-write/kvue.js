@@ -1,4 +1,3 @@
-//
 
 function observe(obj) {
   if (typeof obj !== "object" || obj == null) {
@@ -20,7 +19,7 @@ function defineReactive(obj, key, val) {
       // 读拦截
       // console.log("get", key, val);
       // 依赖收集
-      Dep.target && dep.addDep(Dep.target)
+      Dep.target && dep.addDep(Dep.target);
       return val;
     },
     set(newVal) {
@@ -33,7 +32,7 @@ function defineReactive(obj, key, val) {
 
         // 更新
         // watchers.forEach((w) => w.update());
-        dep.notify()
+        dep.notify();
       }
     },
   });
@@ -165,6 +164,13 @@ class Complie {
         let dir = attrName.substring(2);
         this[dir] && this[dir](node, exp);
       }
+      // 事件处理
+      if (this.isEvent(attrName)) {
+        // @click
+        const dir = attrName.substring(1); //click
+        // 事件监听
+        this.eventHandler(node, exp,dir);
+      }
     });
   }
 
@@ -177,7 +183,7 @@ class Complie {
     // console.log(this.$vm);
 
     // node.textContent = this.$vm[exp];
-    this.update(node,exp,'text')
+    this.update(node, exp, "text");
   }
 
   html(node, exp) {
@@ -187,6 +193,32 @@ class Complie {
 
   htmlUpdater(node, val) {
     node.innerHTML = val;
+  }
+
+  isEvent(dir) {
+    return dir.indexOf("@") === 0;
+  }
+
+  eventHandler(node, exp, dir) {
+    // methods: {onClick:function(){}}
+    const fn = this.$vm.$options.methods && this.$vm.$options.methods[exp]
+    node.addEventListener(dir, fn.bind(this.$vm))
+  }
+
+  // k-model="xx"
+  model(node,exp){
+    // update只完成赋值和更新
+    this.update(node,exp,'model')
+    // 事件监听
+    node.addEventListener('input',e=>{
+      // 将新的值赋值给数据
+      this.$vm[exp] = e.target.value
+    })
+  }
+
+  modelUpdater(node,value){
+    // 表单元素进行赋值
+    node.value = value
   }
 }
 
@@ -213,8 +245,8 @@ class Watcher {
     this.updater = updater;
     // 和Dep建立关系
     Dep.target = this;
-    this.vm[this.key] // 触发get 可以做依赖收集
-    Dep.target = null
+    this.vm[this.key]; // 触发get 可以做依赖收集
+    Dep.target = null;
   }
 
   // 更新方法让Dep调用，
