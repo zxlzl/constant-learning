@@ -146,6 +146,12 @@ class Complie {
 
   // k-text指令执行
   text(node, exp) {
+    console.log(this.$vm);
+    
     node.textContent = this.$vm[exp];
+  }
+
+  html(node,exp){
+    node.innerHTML = this.$vm[exp]
   }
 }
