@@ -3,7 +3,6 @@ function createElement(type, props, ...children) {
     delete props.__self;
     delete props.__source;
   }
-
   return {
     type,
     props: {
