@@ -13,7 +13,7 @@ function createNode(vnode, parent) {
   } else if (typeof type === "string") {
     node = document.createElement(type);
   } else if (typeof type === "function") {
-    console.log(vnode);
+    console.log(type.prototype.isReactComponent);
     // node = type.prototype.isReactComponent
     //   ? updateClassComponent(vnode, parent)
     //   : updateFunctionComponent();
