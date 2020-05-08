@@ -1,21 +1,30 @@
-export default function createElement(type, props, ...children) {
+function createElement(type, props, ...children) {
+  if (props) {
+    delete props.__self;
+    delete props.__source;
+  }
+
   return {
     type,
     props: {
       ...props,
     },
     children: children.map((child) => {
-      typeof child === "object" ? child : createTextNode(child);
+      return typeof child === "object" ? child : createTextNode(child);
     }),
   };
 }
 
-function createTextNode(text){
+function createTextNode(text) {
   return {
-    type: 'TEXT',
+    type: "TEXT",
     props: {
-      children: [],
-      value: text
-    }
-  }
+      value: text,
+    },
+    children: [],
+  };
 }
+
+export default {
+  createElement,
+};
