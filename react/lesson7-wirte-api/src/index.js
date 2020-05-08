@@ -8,9 +8,12 @@ import Component from './zreact/Component'
 
 
 class ClassComponent extends Component {
+  static defaultProps =  {
+    color: 'red'
+  }
   render() {
     return (
-      <div>
+      <div className="border">
         i m class
       </div>
     )

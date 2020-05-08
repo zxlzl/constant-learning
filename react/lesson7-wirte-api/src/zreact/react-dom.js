@@ -13,11 +13,11 @@ function createNode(vnode, parent) {
   } else if (typeof type === "string") {
     node = document.createElement(type);
   } else if (typeof type === "function") {
+    console.log(vnode);
     // node = type.prototype.isReactComponent
     //   ? updateClassComponent(vnode, parent)
     //   : updateFunctionComponent();
-    // node = updateFunctionComponent(vnode,parent)
-    console.log(vnode);
+    node = updateClassComponent(vnode,parent)
   }
   handleChildren(children, node);
   return node;
@@ -32,13 +32,19 @@ function handleChildren(children, node) {
   }
 }
 
-// function updateClassComponent(vnode, parent) {}
+function updateClassComponent(vnode, parent) {
+  const { type, props } = vnode;
+  const component = new type(props);
+  const vnodeFromClass = component.render()
+  const node = createNode(vnodeFromClass, parent);
+  return node
+}
 
 function updateFunctionComponent(vnode, parent) {
-  const {type, props} = vnode
-  const vnodeFromFunction = type(props)
-  const node = createNode(vnodeFromFunction,parent)
-  return node
+  const { type, props } = vnode;
+  const vnodeFromFunction = type(props);
+  const node = createNode(vnodeFromFunction, parent);
+  return node;
 }
 
 export default {
