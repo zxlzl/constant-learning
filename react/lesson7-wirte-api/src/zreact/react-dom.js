@@ -13,21 +13,24 @@ function createNode(vnode, parent) {
   } else if (typeof type === "string") {
     node = document.createElement(type);
   } else if (typeof type === "function") {
-    console.log(type.prototype.isReactComponent);
-    // node = type.prototype.isReactComponent
-    //   ? updateClassComponent(vnode, parent)
-    //   : updateFunctionComponent();
-    node = updateClassComponent(vnode,parent)
+    node = type.prototype.isReactComponent
+      ? updateClassComponent(vnode, parent)
+      : updateFunctionComponent(vnode, parent);
+  } else if (typeof type === "undefined") {
+    node = document.createDocumentFragment();
   }
   handleChildren(children, node);
+  updateNode(node,props)
   return node;
 }
 
 function handleChildren(children, node) {
-  if (children.length !== 0) {
-    for (let i = 0; i < children.length; i++) {
-      let child = children[i];
-      render(child, node);
+  for (let i = 0; i < children.length; i++) {
+    let child = children[i]
+    if (Array.isArray(child)) {
+      child.forEach((item) => render(item, node));
+    } else {
+      render(child,node)
     }
   }
 }
@@ -35,9 +38,9 @@ function handleChildren(children, node) {
 function updateClassComponent(vnode, parent) {
   const { type, props } = vnode;
   const component = new type(props);
-  const vnodeFromClass = component.render()
+  const vnodeFromClass = component.render();
   const node = createNode(vnodeFromClass, parent);
-  return node
+  return node;
 }
 
 function updateFunctionComponent(vnode, parent) {

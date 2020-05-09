@@ -2,27 +2,20 @@
 // import { Component } from 'react'
 // import ReactDOM from "react-dom"
 
-import React from './zreact'
-import ReactDOM from "./zreact/react-dom"
-import Component from './zreact/Component'
-
+import React from "./zreact";
+import ReactDOM from "./zreact/react-dom";
+import Component from "./zreact/Component";
 
 class ClassComponent extends Component {
-  static defaultProps =  {
-    color: 'red'
-  }
+  static defaultProps = {
+    color: "red",
+  };
   render() {
-    return (
-      <div className="border">
-        i m class
-      </div>
-    )
+    return <div className="border">i m class</div>;
   }
 }
 
-
-
-function FunctionComponent({name}) {
+function FunctionComponent({ name }) {
   return (
     <div className="border">
       {name}
@@ -39,12 +32,22 @@ const jsx = (
     <p>hello world</p>
     <p>12</p>
 
-    {/* <FunctionComponent name="function组件"></FunctionComponent> */}
+    <FunctionComponent name="function组件"></FunctionComponent>
 
     <ClassComponent></ClassComponent>
+
+    <>
+      <li>fragment1</li>
+      <li>fragment2</li>
+    </>
+
+    {[1, 2, 3].map((item) => (
+      <div key={item}>
+        {item}
+        <h6>文本{item}</h6>
+      </div>
+    ))}
   </div>
-)
+);
 
-
-
-ReactDOM.render(jsx, document.getElementById('root'))
+ReactDOM.render(jsx, document.getElementById("root"));
