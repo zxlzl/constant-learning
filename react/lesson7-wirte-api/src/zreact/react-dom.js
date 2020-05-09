@@ -1,4 +1,5 @@
 function render(vnode, container) {
+  
   // vnode->Node
   const node = createNode(vnode, container);
   container.appendChild(node);
@@ -48,6 +49,11 @@ function updateFunctionComponent(vnode, parent) {
   const vnodeFromFunction = type(props);
   const node = createNode(vnodeFromFunction, parent);
   return node;
+}
+
+function updateNode(node, props) {
+  console.log(props,node)
+  Object.keys(props).forEach(prop=>node[prop]=props[prop])
 }
 
 export default {

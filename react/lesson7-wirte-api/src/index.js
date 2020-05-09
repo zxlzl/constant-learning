@@ -2,13 +2,17 @@
 // import { Component } from 'react'
 // import ReactDOM from "react-dom"
 
+import "./index.css";
+
 import React from "./zreact";
 import ReactDOM from "./zreact/react-dom";
 import Component from "./zreact/Component";
 
 class ClassComponent extends Component {
   static defaultProps = {
-    color: "red",
+    color: {
+      aaa: 11,
+    },
   };
   render() {
     return <div className="border">i m class</div>;
@@ -24,19 +28,27 @@ function FunctionComponent({ name }) {
   );
 }
 
-const jsx = (
-  <div>
-    <p>
+const jsx = <div className="border" value="ad" data="asd">阿萨斯多</div>;
+{
+  /* <p>
       <span>saas</span>
-    </p>
-    <p>hello world</p>
-    <p>12</p>
+    </p> */
+}
+{
+  /* <p>hello world</p>
+    <p>12</p> */
+}
 
-    <FunctionComponent name="function组件"></FunctionComponent>
+{
+  /* <FunctionComponent name="function组件"></FunctionComponent> */
+}
 
-    <ClassComponent></ClassComponent>
+{
+  /* <ClassComponent></ClassComponent> */
+}
 
-    <>
+{
+  /* <>
       <li>fragment1</li>
       <li>fragment2</li>
     </>
@@ -46,8 +58,7 @@ const jsx = (
         {item}
         <h6>文本{item}</h6>
       </div>
-    ))}
-  </div>
-);
+    ))} */
+}
 
 ReactDOM.render(jsx, document.getElementById("root"));
