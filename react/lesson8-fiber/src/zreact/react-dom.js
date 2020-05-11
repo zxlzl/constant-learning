@@ -1,3 +1,16 @@
+import {TEXT, PLACEMENT} from "./const";
+
+
+// fiber结构
+/**
+ * child
+ * sibling
+ * return
+ * node dom节点
+ * base 存储当前节点的上一次的fiber
+ */
+
+
 function render(vnode, container) {
   
   // vnode->Node
@@ -9,7 +22,7 @@ function render(vnode, container) {
 function createNode(vnode, parent) {
   const { props, type, children } = vnode;
   let node = null;
-  if (type === "TEXT") {
+  if (type === TEXT) {
     node = document.createTextNode(props.value);
   } else if (typeof type === "string") {
     node = document.createElement(type);
