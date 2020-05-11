@@ -28,37 +28,26 @@ function FunctionComponent({ name }) {
   );
 }
 
-const jsx = <div className="border" value="ad" data="asd">阿萨斯多</div>;
-{
-  /* <p>
+const jsx = (
+  <div className="border" value="ad" data="asd">
+    <p>
       <span>saas</span>
-    </p> */
-}
-{
-  /* <p>hello world</p>
-    <p>12</p> */
-}
-
-{
-  /* <FunctionComponent name="function组件"></FunctionComponent> */
-}
-
-{
-  /* <ClassComponent></ClassComponent> */
-}
-
-{
-  /* <>
+      <p>hello world</p>
+      <p>12</p>
+      <FunctionComponent name="function组件"></FunctionComponent>
+      <ClassComponent></ClassComponent>
+    </p>
+    <>
       <li>fragment1</li>
       <li>fragment2</li>
     </>
-
     {[1, 2, 3].map((item) => (
       <div key={item}>
         {item}
         <h6>文本{item}</h6>
       </div>
-    ))} */
-}
+    ))}
+  </div>
+);
 
 ReactDOM.render(jsx, document.getElementById("root"));

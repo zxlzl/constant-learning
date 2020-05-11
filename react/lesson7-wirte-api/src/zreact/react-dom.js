@@ -52,8 +52,14 @@ function updateFunctionComponent(vnode, parent) {
 }
 
 function updateNode(node, props) {
-  console.log(props,node)
-  Object.keys(props).forEach(prop=>node[prop]=props[prop])
+  Object.keys(props).forEach(prop=>{
+    if (prop.slice(0,2)==="on") {
+      let eventName = prop.slice(2).toLowerCase()
+      node.addEventListener(eventName,props[prop])
+    } else {
+      node[prop]=props[prop]
+    }
+  })
 }
 
 export default {
