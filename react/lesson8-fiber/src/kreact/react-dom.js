@@ -96,6 +96,14 @@ function updateClassComponent(vnode, parentNode) {
   return node;
 }
 
+function updateHostComponent(fiber){
+  if (!fiber.node) {
+    fiber.node = createNode(fiber);
+  }
+  const {children}=fiber.props
+  reconcileChildren(fiber,children)
+}
+
 function wookLoop(deadline){
   // 查找下一个子任务，且当前帧没有结束
   while (nextUnitOfWork && deadline.timeRemaining() > 1 ) {
