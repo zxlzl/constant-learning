@@ -1,25 +1,27 @@
-// import React from 'react'
-// import { Component } from 'react'
-// import ReactDOM from "react-dom"
+// import React, {Component, Fragment} from "react";
+// import ReactDOM from "react-dom";
+
+import React from "./kreact/";
+import ReactDOM from "./kreact/react-dom";
+import Component from "./kreact/Component";
 
 import "./index.css";
 
-import React from "./zreact";
-import ReactDOM from "./zreact/react-dom";
-import Component from "./zreact/Component";
-
 class ClassComponent extends Component {
   static defaultProps = {
-    color: {
-      aaa: 11,
-    },
+    color: "pink"
   };
   render() {
-    return <div className="border">i m class</div>;
+    return (
+      <div className="border">
+        <div className={this.props.color}>color </div>
+        {this.props.name}
+      </div>
+    );
   }
 }
 
-function FunctionComponent({ name }) {
+function FunctionComponent({name}) {
   return (
     <div className="border">
       {name}
@@ -29,19 +31,18 @@ function FunctionComponent({ name }) {
 }
 
 const jsx = (
-  <div className="border" >
-    <p>
-      <span>saas</span>
-      <p>hello world</p>
-      <p>12</p>
-      <FunctionComponent name="function组件"></FunctionComponent>
-      <ClassComponent></ClassComponent>
-    </p>
+  <div className="border">
+    <p>全栈学习</p>
+    <a href="https://zh-hans.reactjs.org/">React学习</a>
+    <FunctionComponent name="函数组件" />
+    <ClassComponent name="class组件" />
+
     <>
-      <li>fragment1</li>
-      <li>fragment2</li>
+      <h1>文本1</h1>
+      <h2>文本2</h2>
     </>
-    {[1, 2, 3].map((item) => (
+
+    {[1, 2, 3].map(item => (
       <div key={item}>
         {item}
         <h6>文本{item}</h6>
@@ -50,4 +51,22 @@ const jsx = (
   </div>
 );
 
+// <React.Fragment key={item}>
+//   {item}
+//   <h6>文本{item}</h6>
+// </React.Fragment>
+
+// vnode->node , 把node装入container
 ReactDOM.render(jsx, document.getElementById("root"));
+
+console.log("version", React.version); //sy-log
+
+// vnode  虚拟dom节点
+// node 真实dom节点
+// !节点类型
+// 文本节点
+// HTML标签节点
+// function组件
+// class组件
+// fragment
+// 数组
