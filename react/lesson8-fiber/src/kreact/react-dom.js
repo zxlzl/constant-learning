@@ -111,22 +111,7 @@ function updateHostComponent(fiber) {
   reconcileChildren(fiber, children);
 }
 
-function workLoop(deadline) {
-  // 查找下一个子任务，且当前帧没有结束
-  while (nextUnitOfWork && deadline.timeRemaining() > 1) {
-    // 当前有任务
-    nextUnitOfWork = peformUnitOfWork(nextUnitOfWork);
-  }
-
-  // 所有任务执行完成
-  if (!nextUnitOfWork && wipRoot) {
-    commitRoot();
-  }
-
-  requestIdleCallback(workLoop);
-}
-
-function peformUnitOfWork(fiber) {
+function performUnitOfWork(fiber) {
   // 1. 执行当前任务
   const { type } = fiber;
   if (typeof type === "function") {
@@ -149,8 +134,24 @@ function peformUnitOfWork(fiber) {
     }
     nextFiber = nextFiber.return;
   }
-  
 }
+
+function workLoop(deadline) {
+  // 查找下一个子任务，且当前帧没有结束
+  while (nextUnitOfWork && deadline.timeRemaining() > 1) {
+    // 当前有任务
+    nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
+  }
+
+  // 所有任务执行完成
+  if (!nextUnitOfWork && wipRoot) {
+    commitRoot();
+  }
+
+  requestIdleCallback(workLoop);
+}
+
+requestIdleCallback(workLoop);
 
 function commitRoot() {
   console.log('commit root');
@@ -175,7 +176,13 @@ function commitWorker(fiber){
   commitWorker(fiber.child);
   commitWorker(fiber.sibling);
 }
-requestIdleCallback(workLoop);
+
+
+
+
+
+
+
 
 export default {
   render,
