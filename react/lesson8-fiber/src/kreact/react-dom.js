@@ -1,4 +1,4 @@
-import { TEXT } from "./const";
+import { TEXT,PLACEMENT } from "./const";
 
 // 下一个子任务 fiber
 let nextUnitOfWork = null;
@@ -47,7 +47,7 @@ function createNode(fiber) {
 
 function reconcileChildren(workInProgressFiber, children) {
   // 给children构建fiber结构
-  let oldFiber = workInProgressFiber.base & workInProgressFiber.base.child;
+  let oldFiber = workInProgressFiber.base && workInProgressFiber.base.child;
   let prevSibling = null;
   for (let i = 0; i < children.length; i++) {
     let child = children[i];
@@ -58,7 +58,7 @@ function reconcileChildren(workInProgressFiber, children) {
     }
     if (!sameType && child) {
     }
-    if (!sameType && oldFier) {
+    if (!sameType && oldFiber) {
       // 删除
     }
 
@@ -89,21 +89,20 @@ function updateNode(node, nextVal) {
     });
 }
 
-function updateFunctionComponent(vnode, parentNode) {
-  const { type, props } = vnode;
-  const vvnode = type(props);
-  const node = createNode(vvnode, parentNode);
-  return node;
+function updateFunctionComponent(fiber) {
+  const { type, props } = fiber;
+  const children = [type(props)]
+  reconcileChildren(fiber, children);
 }
 
-function updateClassComponent(vnode, parentNode) {
-  const { type, props } = vnode;
+function updateClassComponent(fiber) {
+  const { type, props } = fiber;
   const cmp = new type(props);
-  const vvnode = cmp.render();
-  const node = createNode(vvnode, parentNode);
-  return node;
+  const children = [cmp.render()];
+  reconcileChildren(fiber, children);
 }
 
+// 渲染原生节点
 function updateHostComponent(fiber) {
   if (!fiber.node) {
     fiber.node = createNode(fiber);
@@ -112,7 +111,7 @@ function updateHostComponent(fiber) {
   reconcileChildren(fiber, children);
 }
 
-function wookLoop(deadline) {
+function workLoop(deadline) {
   // 查找下一个子任务，且当前帧没有结束
   while (nextUnitOfWork && deadline.timeRemaining() > 1) {
     // 当前有任务
@@ -176,7 +175,7 @@ function commitWorker(fiber){
   commitWorker(fiber.child);
   commitWorker(fiber.sibling);
 }
-requestIdleCallback(wookLoop);
+requestIdleCallback(workLoop);
 
 export default {
   render,
