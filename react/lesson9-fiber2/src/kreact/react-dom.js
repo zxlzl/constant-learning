@@ -134,13 +134,10 @@ function performUnitOfWork(fiber) {
     updateHostComponent(fiber);
   }
 
-  // 2. 返回下一个任务
-  // 找到下一个任务 得有原则
-  // 原则就是：先找子元素
+  // 2. 返回下一个任务 原则：先找子元素，没有子元素，寻找兄弟元素
   if (fiber.child) {
     return fiber.child;
   }
-  // 原则2： 如没有子元素，寻找兄弟元素
   let nextFiber = fiber;
   while (nextFiber) {
     if (nextFiber.sibling) {
