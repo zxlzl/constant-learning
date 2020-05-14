@@ -32,14 +32,14 @@ function FunctionComponent({name}) {
 const jsx = (
   <div className="border">
     <p>全栈学习</p>
-    <a href="https://zh-hans.reactjs.org/">React学习</a>
+    {/* <a href="https://zh-hans.reactjs.org/">React学习</a>
     <FunctionComponent name="函数组件" />
     <ClassComponent name="class组件" />
 
     <>
       <h1>文本1</h1>
       <h2>文本2</h2>
-    </>
+    </> */}
   </div>
 );
 
