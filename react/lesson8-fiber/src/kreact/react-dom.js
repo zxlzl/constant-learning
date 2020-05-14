@@ -22,7 +22,6 @@ function render(vnode, container) {
     },
     base: null
   };
-  debugger
   console.log("wipRoot", wipRoot); 
   nextUnitOfWork = wipRoot;
 }
