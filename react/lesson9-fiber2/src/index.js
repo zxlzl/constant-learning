@@ -1,17 +1,46 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+// import React, {Component} from "react";
+// import ReactDOM from "react-dom";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+import React from "./kreact/";
+import ReactDOM from "./kreact/react-dom";
+import Component from "./kreact/Component";
+import "./index.css";
+
+class ClassComponent extends Component {
+  static defaultProps = {
+    color: "pink"
+  };
+  render() {
+    return (
+      <div className="border">
+        <div className={this.props.color}>color </div>
+        {this.props.name}
+      </div>
+    );
+  }
+}
+
+function FunctionComponent({name}) {
+  return (
+    <div className="border">
+      {name}
+      <button onClick={() => console.log("omg")}>btn</button>
+    </div>
+  );
+}
+
+const jsx = (
+  <div className="border">
+    <p>全栈学习</p>
+    <a href="https://zh-hans.reactjs.org/">React学习</a>
+    <FunctionComponent name="函数组件" />
+    <ClassComponent name="class组件" />
+
+    <>
+      <h1>文本1</h1>
+      <h2>文本2</h2>
+    </>
+  </div>
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(jsx, document.getElementById("root"));
