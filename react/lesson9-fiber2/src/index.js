@@ -31,7 +31,7 @@ function FunctionComponent({name}) {
 
 const jsx = (
   <div className="border">
-    <p>全栈学习</p>
+    <p>学习</p>
     {/* <a href="https://zh-hans.reactjs.org/">React学习</a>
     <FunctionComponent name="函数组件" />
     <ClassComponent name="class组件" />

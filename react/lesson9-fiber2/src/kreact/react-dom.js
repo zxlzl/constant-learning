@@ -102,12 +102,14 @@ function reconcileChildren(workInProgressFiber, children) {
 }
 
 function updateFunctionComponent(fiber) {
+  console.log('updateFunctionComponent');
   const {type, props} = fiber;
   const children = [type(props)];
   reconcileChildren(fiber, children);
 }
 
 function updateClassComponent(fiber) {
+  console.log('updateClassComponent');
   const {type, props} = fiber;
   const cmp = new type(props);
   const children = [cmp.render()];
@@ -116,6 +118,7 @@ function updateClassComponent(fiber) {
 
 // 渲染原生节点
 function updateHostComponent(fiber) {
+  console.log('updateHostComponent');
   if (!fiber.node) {
     fiber.node = createNode(fiber);
   }
@@ -125,6 +128,7 @@ function updateHostComponent(fiber) {
 
 function performUnitOfWork(fiber) {
   // 1. 执行当前任务
+  debugger
   const {type} = fiber;
   if (typeof type === "function") {
     type.isReactComponent
