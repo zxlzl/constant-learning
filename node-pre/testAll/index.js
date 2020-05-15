@@ -1,5 +1,24 @@
 const path = require('path')
 module.exports = class TestNow {
+
+  /**
+   * 生成测试代码
+   * @param {} filename 
+   */
+  getTestSourceCode(methodName, className, isClass=false) {
+    console.log('getTestSourceCode', methodName)
+    return `
+test('${'TEST '+methodName}',() => {
+  const ${isClass ? '{'+methodName+'}':methodName} = require('${'../'+className}')
+  const ret = ${methodName}()
+  // expect(ret)
+  //     .toBe('test ret')
+})
+    `
+  }
+
+  
+  
   /**
    * 生成测试文件名
    * @param {*} filename
