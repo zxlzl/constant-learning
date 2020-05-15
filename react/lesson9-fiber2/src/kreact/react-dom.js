@@ -251,6 +251,7 @@ let wipFiber = null;
 let hookIndex = null;
 export function useState(init) {
   // 状态值：初始值以及改变之后的值
+  debugger
   const oldHook = wipFiber.base && wipFiber.base.hooks[hookIndex];
   const hook = {state: oldHook ? oldHook.state : init, queue: []};
 
