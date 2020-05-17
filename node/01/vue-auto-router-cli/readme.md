@@ -3,3 +3,6 @@
 npm link 
 进入项目使用命令行相关命令
 
+<!-- 删除命令 -->
+ls /usr/local/bin/
+rm /usr/local/bin/kkb
