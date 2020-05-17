@@ -28,15 +28,15 @@ module.exports = async (name) => {
   // await clone("github:su37josephxia/vue-template", name)
   // log("安装依赖");
   // await spawn("cnpm", ["install"], { cwd: `./${name}` });
-  log(`
-  👌安装完成：
-  To get Start:
-  ===========================
-      cd ${name}
-      npm run serve
-  ===========================
-              `);
-  const open = require("open");
-  open("http://localhost:8080");
-  await spawn("npm", ["run", "serve"], { cwd: `./${name}` });
+  // log(`
+  // 👌安装完成：
+  // To get Start:
+  // ===========================
+  //     cd ${name}
+  //     npm run serve
+  // ===========================
+  //             `);
+  // const open = require("open");
+  // open("http://localhost:8080");
+  // await spawn("npm", ["run", "serve"], { cwd: `./${name}` });
 };

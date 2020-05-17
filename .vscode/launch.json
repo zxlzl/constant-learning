@@ -12,6 +12,15 @@
         "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/node-pre/testAll/index.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "刷新路由",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/node/01/vue-auto-router-cli/lib/refresh.js"
     }
   ]
 }
