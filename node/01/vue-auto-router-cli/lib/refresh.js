@@ -27,8 +27,7 @@ module.exports =  async () => {
    * @param {*} templatePath 模板
    */
   function compile(meta, filePath, templatePath) {
-    console.log(meta, filePath, templatePath);
-    console.log(meta, filePath, templatePath);
+    // console.log(meta, filePath, templatePath);
     if (fs.existsSync(templatePath)) {
       const content = fs.readFileSync(templatePath).toString();
       const result = handlebars.compile(content)(meta);
