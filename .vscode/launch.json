@@ -8,6 +8,15 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "调试koa",
+      "program": "${workspaceFolder}/node/02/source/app.js",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "启动程序",
       "skipFiles": [
         "<node_internals>/**"
