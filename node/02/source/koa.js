@@ -24,6 +24,7 @@ class Koa {
   //   res.end('hi zxl')
   // }
   
+  
 
   use(middleware){
     this.middlewares.push(middleware)
