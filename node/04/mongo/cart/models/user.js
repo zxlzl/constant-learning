@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 const schema = mongoose.Schema({
   name: String,
@@ -20,15 +20,14 @@ schema.statics.setCart = function(_id, cart) {
 
 const model = mongoose.model("user", schema);
 
-// 测试数据
 model.updateOne(
   { _id: "5c1a2dce951e9160f0d8573b" },
   { name: "jerry", cart: [{ pname: "iPhone", price: 666, count: 1 }] },
   { upsert: true },
-  (err, r) => {
+  (err, r)=>{
     console.log('测试数据');
-    console.log(err, r);
+    console.log(err,r);
   }
-);
+)
 
-module.exports = model;
+module.exports = model
