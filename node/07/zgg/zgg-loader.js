@@ -55,7 +55,8 @@ function initController(app) {
 function initService() {
     const services = {}
     load('service', (filename, service) => {
-        services[filename] = service
+        // services[filename] = service
+        services[filename] = service(app)
     })
     return services
 }
