@@ -1,5 +1,5 @@
 {
-  "name": "egg-server",
+  "name": "server2",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -7,8 +7,16 @@
     "declarations": true
   },
   "dependencies": {
+    "await-stream-ready": "^1.0.1",
     "egg": "^2.15.1",
-    "egg-scripts": "^2.11.0"
+    "egg-bcrypt": "^1.1.0",
+    "egg-jwt": "^3.1.6",
+    "egg-mongoose": "^3.2.0",
+    "egg-scripts": "^2.11.0",
+    "egg-swagger-doc-feat": "^2.2.13",
+    "egg-validate": "^2.0.2",
+    "image-downloader": "^3.4.2",
+    "stream-wormhole": "^1.1.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",
@@ -23,8 +31,8 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-egg-server",
-    "stop": "egg-scripts stop --title=egg-server-egg-server",
+    "start": "egg-scripts start --daemon --title=egg-server-server2",
+    "stop": "egg-scripts stop --title=egg-server-server2",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
