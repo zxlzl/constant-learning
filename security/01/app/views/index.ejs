@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <h2>欢迎来自<%-from%>!!</h2>
+  <h2>用户名<%-username%>!!</h2>
+  <h2>评论<%-text%>!!</h2>
+  <% if(username){%>
+    <form action="/updatetext" method="post" name="from">
+      添加评论：<input type="text" name="text" value="" id="text"/>
+      <input type="submit" value="发表" />
+      <input type="button" value="点赞" onclick="send()">
+    </form>
+    <%} else {%>
+      <a href="/login">去登录</a>
+      <%} %>
+  
+</body>
+<script>
+  function send(){
+    console.log('send');
+    document.querySelector("#text").value = '赞赞咋'
+    document.querySelector('form').submit()
+  }
+</script>
+</html>
