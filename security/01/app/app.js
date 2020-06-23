@@ -7,6 +7,8 @@ app.use(bodyParser());
 const router = require("koa-router")();
 const views = require("koa-views");
 const query = require("./db");
+console.log(query);
+
 
 app.keys = ["some secret hurr"];
 const CONFIG = {

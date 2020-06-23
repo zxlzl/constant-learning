@@ -1,7 +1,6 @@
 
 (async () => {
-  const query = require("./app.db");
-  console.log(query);
+  const query = require("./app/db");
   
   res = await query(`CREATE DATABASE IF NOT EXISTS test`);
 
