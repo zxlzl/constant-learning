@@ -3,7 +3,10 @@ module.exports = {
   // 插件机制 postcss
   plugins: [
     require('autoprefixer')({
-      overrideBrowserslist:["last 2 versions",">1%"]
-    })
+      // pxtorem
+      // postcss-plugin-px2rem
+      overrideBrowserslist:["last 2 versions",">1%"] //面向全球的占有率
+    }),
+    
   ]
 }
