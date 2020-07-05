@@ -41,7 +41,15 @@
 
 // console.log('home');
 
+// const arr = [new Promise(() => {}), new Promise(() => {})];
+// arr.map(item => { console.log(item);
+// });
 
-const arr = [new Promise(() => {}), new Promise(() => {})];
-arr.map(item => { console.log(item);
-});
+import React, { Component } from "react";
+import ReactDom from "react-dom";
+class App extends Component {
+  render() {
+    return <div>hello world</div>;
+  }
+}
+ReactDom.render(<App />, document.getElementById("app"));
