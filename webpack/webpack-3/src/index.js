@@ -1,3 +1,4 @@
+// import "@babel/polyfill" // 垫片 包含所有es6+新特性
 // import css from "./style/index.css"
 // import less from "./style/index.less";
 
