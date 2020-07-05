@@ -2,6 +2,9 @@ const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const glob = require("glob");
+// 开起js的hmr需要webpack
+const webpack = require('webpack')
+
 // mpa 多页面打包方案
 // entry
 // htmlWebpackPlugin
@@ -106,15 +109,18 @@ module.exports = {
     // ...htmlWebpackPlugins,
 
     new CleanWebpackPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
   ],
-  devServer: {
-    contentBase: "./dist",
-    open: true,
-    port: 8081,
-    proxy: {
-      "/api":{
-        target: "http://localhost:9092"
-      }
-    }
-  },
+  // devServer: {
+  //   contentBase: "./dist",
+  //   open: true,
+  //   port: 8081,
+  //   hot: true,// 开起hmr 制定hot的模块是通过websocket推送到网页
+  //   hotOnly: true, //关闭浏览器自动刷新 
+  //   proxy: {
+  //     "/api":{
+  //       target: "http://localhost:9092"
+  //     }
+  //   }
+  // },
 };
