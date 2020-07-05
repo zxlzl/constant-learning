@@ -5,6 +5,7 @@ const glob = require("glob");
 // 开起js的hmr需要webpack
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 // mpa 多页面打包方案
 // entry
@@ -16,7 +17,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // js chunkhash
 // css contenthash
 // image hash
-
 
 const setMpa = () => {
   const entry = {};
@@ -53,7 +53,11 @@ const { entry, htmlWebpackPlugins } = setMpa();
 
 module.exports = {
   // entry: "./src/index.js",
-  entry: {main:"./src/home/index.js",list: "./src/list/index.js",detail: "./src/detail/index.js"},
+  entry: {
+    main: "./src/home/index.js",
+    list: "./src/list/index.js",
+    detail: "./src/detail/index.js",
+  },
   // entry,
   output: {
     filename: "[name]_[chunkhash:6].js",
@@ -78,31 +82,35 @@ module.exports = {
         include: path.resolve(__dirname, "./src"),
 
         exclude: path.resolve(__dirname, "./node_modules"),
-        use: [{
-          loader: MiniCssExtractPlugin.loader,
-          options: {
-            publicPath: "../",
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: "../",
+            },
           },
-        },
-          
+
           "css-loader",
           "postcss-loader",
           "less-loader",
         ],
       },
       {
-        test: /\.(png|gif|jpe?g|webp)$/,
+        test: /\.(png|gif|jpe?g|webp|svg)$/,
         include: path.resolve(__dirname, "./src"),
 
-        use: {
-          // loader: 'file-loader',
-          loader: "url-loader",
-          options: {
-            name: "[name]_[hash:8].[ext]",
-            outputPath: "images/",
-            limit: 10240, // 专为base64格式 放入bundle.js
+        use: [
+          {
+            // loader: 'file-loader',
+            loader: "url-loader",
+            options: {
+              name: "[name]_[hash:8].[ext]",
+              outputPath: "images/",
+              limit: 10240, // 专为base64格式 放入bundle.js
+            },
           },
-        },
+          {loader: 'image-webpack-loader'}
+        ],
       },
       {
         test: /\.(eot|ttf|woff|woff2|svg)$/,
@@ -142,18 +150,24 @@ module.exports = {
       filename: "index.html",
       template: "./src/index.html",
       chunks: ["main"],
+      // html压缩
+      minify: {
+        removeComments: true, //移除注释
+        collapseWhitespace: true,
+        minifyCSS: true, //压缩内联css
+      },
     }),
     new htmlWebpackPlugin({
       title: "detail",
       filename: "detail.html",
       template: "./src/index.html",
-      chunks: ['detail']
+      chunks: ["detail"],
     }),
     new htmlWebpackPlugin({
       title: "list",
       filename: "list.html",
       template: "./src/index.html",
-      chunks: ['list']
+      chunks: ["list"],
     }),
     // ...htmlWebpackPlugins,
 
@@ -163,6 +177,7 @@ module.exports = {
       filename: "css/[name]_[contenthash:6].css",
     }),
     new CleanWebpackPlugin(),
+    new OptimizeCSSAssetsPlugin(),
   ],
   // devServer: {
   //   contentBase: "./dist",

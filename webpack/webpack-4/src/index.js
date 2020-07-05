@@ -1,6 +1,8 @@
 // import "@babel/polyfill" // 垫片 包含所有es6+新特性
 // import css from "./style/index.css"
-// import less from "./style/index.less";
+import less from "./style/index.less";
+
+console.log(111);
 
 // const a = require('./number')
 // const list = require('./list/index')
@@ -48,11 +50,11 @@
 // arr.map(item => { console.log(item);
 // });
 
-import React, { Component } from "react";
-import ReactDom from "react-dom";
-class App extends Component {
-  render() {
-    return <div>hello world</div>;
-  }
-}
-ReactDom.render(<App />, document.getElementById("app"));
+// import React, { Component } from "react";
+// import ReactDom from "react-dom";
+// class App extends Component {
+//   render() {
+//     return <div>hello world</div>;
+//   }
+// }
+// ReactDom.render(<App />, document.getElementById("app"));
