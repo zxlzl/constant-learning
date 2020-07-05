@@ -1,11 +1,9 @@
 // import "@babel/polyfill" // 垫片 包含所有es6+新特性
 // import css from "./style/index.css"
-import less from "./style/index.less";
+// import less from "./style/index.less";
 
-const a = require('./number')
-const list = require('./list/index')
-
-a
+// const a = require('./number')
+// const list = require('./list/index')
 
 // import counter from "./counter.js";
 // import number from "./number.js";

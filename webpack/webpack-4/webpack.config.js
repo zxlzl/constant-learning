@@ -10,6 +10,14 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // entry
 // htmlWebpackPlugin
 
+// 1、hash作用于js css 图片的hash有区别
+// 2、hash打包一次 变化一次 不利于缓存
+
+// js chunkhash
+// css contenthash
+// image hash
+
+
 const setMpa = () => {
   const entry = {};
   const htmlWebpackPlugins = [];
@@ -44,11 +52,11 @@ const setMpa = () => {
 const { entry, htmlWebpackPlugins } = setMpa();
 
 module.exports = {
-  entry: "./src/index.js",
-  // entry: {main:"./src/index.js",list: "./src/list.js",detail: "./src/detail.js"},
+  // entry: "./src/index.js",
+  entry: {main:"./src/home/index.js",list: "./src/list/index.js",detail: "./src/detail/index.js"},
   // entry,
   output: {
-    filename: "[name]_[hash:6].js",
+    filename: "[name]_[chunkhash:6].js",
     path: path.resolve(__dirname, "dist"),
     // publicPath: "http://www.test.com",
   },
@@ -70,8 +78,13 @@ module.exports = {
         include: path.resolve(__dirname, "./src"),
 
         exclude: path.resolve(__dirname, "./node_modules"),
-        use: [
-          MiniCssExtractPlugin.loader,
+        use: [{
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            publicPath: "../",
+          },
+        },
+          
           "css-loader",
           "postcss-loader",
           "less-loader",
@@ -85,7 +98,7 @@ module.exports = {
           // loader: 'file-loader',
           loader: "url-loader",
           options: {
-            name: "[name]_[hash:6].[ext]",
+            name: "[name]_[hash:8].[ext]",
             outputPath: "images/",
             limit: 10240, // 专为base64格式 放入bundle.js
           },
@@ -107,7 +120,6 @@ module.exports = {
       {
         test: /\.js$/,
         include: path.resolve(__dirname, "./src"),
-
         use: {
           loader: "babel-loader",
         },
@@ -131,23 +143,24 @@ module.exports = {
       template: "./src/index.html",
       chunks: ["main"],
     }),
-    // new htmlWebpackPlugin({
-    //   title: "detail",
-    //   filename: "detail.html",
-    //   template: "./src/index.html",
-    //   chunks: ['detail','list']
-    // }),
-    // new htmlWebpackPlugin({
-    //   title: "list",
-    //   filename: "list.html",
-    //   template: "./src/index.html",
-    //   chunks: ['list']
-    // }),
+    new htmlWebpackPlugin({
+      title: "detail",
+      filename: "detail.html",
+      template: "./src/index.html",
+      chunks: ['detail']
+    }),
+    new htmlWebpackPlugin({
+      title: "list",
+      filename: "list.html",
+      template: "./src/index.html",
+      chunks: ['list']
+    }),
     // ...htmlWebpackPlugins,
 
     // new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
-      filename: "css/[name]_[contentHash:6].css",
+      // 容易造成对应层级问题
+      filename: "css/[name]_[contenthash:6].css",
     }),
     new CleanWebpackPlugin(),
   ],
