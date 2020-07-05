@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const glob = require("glob");
 // 开起js的hmr需要webpack
 const webpack = require("webpack");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 // mpa 多页面打包方案
 // entry
@@ -69,7 +70,12 @@ module.exports = {
         include: path.resolve(__dirname, "./src"),
 
         exclude: path.resolve(__dirname, "./node_modules"),
-        use: ["style-loader", "css-loader", "postcss-loader", "less-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "less-loader",
+        ],
       },
       {
         test: /\.(png|gif|jpe?g|webp)$/,
@@ -115,7 +121,7 @@ module.exports = {
       // 给图片起别名 注意html css使用 不要忘记~
       "@assets": path.resolve(__dirname, "./src/images/"),
     },
-    extensions: ['.js','.json','.jsx','.ts']
+    extensions: [".js", ".json", ".jsx", ".ts"],
   },
   devtool: "inline-source-map",
   plugins: [
@@ -139,8 +145,11 @@ module.exports = {
     // }),
     // ...htmlWebpackPlugins,
 
-    new CleanWebpackPlugin(),
     // new webpack.HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "css/[name]_[contentHash:6].css",
+    }),
+    new CleanWebpackPlugin(),
   ],
   // devServer: {
   //   contentBase: "./dist",
