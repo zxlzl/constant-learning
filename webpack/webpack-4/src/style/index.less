@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "webfont";
+  font-display: swap;
+  src: url("../webfont.woff2") format("woff2");
+}
+
+.web-font {
+  font-family: "webfont" !important;
+  font-size: 24px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background: red;
+}
+
+div:nth-of-type(odd) {
+  background: blue;
+}
+
+ul li {
+  width: 200px;
+  height: 200px;
+  background: url(~@assets/logo.png);
+}
