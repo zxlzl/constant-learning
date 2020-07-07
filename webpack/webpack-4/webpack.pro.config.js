@@ -10,7 +10,7 @@ const proConfig = {
   mode: "production",
   output: {
     path: path.resolve(__dirname, "./build"),
-    publicPath: "http://cdn.kaikeba.com/assets/",
+    publicPath: "http://www.test.com/assets/",
   },
   module: {
     rules: [
