@@ -1,6 +1,7 @@
 const fs = require("fs");
 const parser = require("@babel/parser");
-const traverse = require("@babel/traverse")
+const traverse = require("@babel/traverse").default
+const path = require('path')
 
 module.exports = class Webpack {
   constructor(options) {
@@ -19,10 +20,16 @@ module.exports = class Webpack {
     const ast = parser.parse(content, {
       sourceType: "module",
     });
-    console.log(ast.program.body);
+    // console.log(ast.program.body);
+    const yilai = {}
     traverse(ast,{
       ImportDeclaration({node}){
-        console.log(node);
+        // 拿到模块依赖在项目中的路径
+        // ./a.js
+        // ./src/index.js
+        //path.dirname(entryFile)
+        
+        console.log(node.source.value);
       }
     })
   }
