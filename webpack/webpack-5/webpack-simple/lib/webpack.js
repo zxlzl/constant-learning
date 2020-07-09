@@ -2,7 +2,7 @@ const fs = require("fs");
 const parser = require("@babel/parser");
 const traverse = require("@babel/traverse").default
 const path = require('path')
-
+const { transformFromAst } = require("@babel/core");
 module.exports = class Webpack {
   constructor(options) {
     const { entry, output } = options;
@@ -24,6 +24,7 @@ module.exports = class Webpack {
     const yilai = {}
     traverse(ast,{
       ImportDeclaration({node}){
+        console.log(node);
         // 拿到模块依赖在项目中的路径
         // ./src/
         //path.dirname(entryFile)
@@ -32,10 +33,22 @@ module.exports = class Webpack {
         yilai[nodeSource] = newPath
       }
     })
-    console.log(yilai);
+    // console.log(yilai);
+
+    // babel/preset-env做的事
+    // 1、加工厂
+    // 2、原材料ast
+    // 3、加工成es5
 
     // 处理内容 转换代码
-    
+    const {code}=transformFromAst(ast,null,{
+      // 处理成标准代码
+      presets:["@babel/preset-env"]
+    })
+    // console.log(code);
+    return {
+      entryFile,yilai,code
+    }
   }
   file() {}
 };
