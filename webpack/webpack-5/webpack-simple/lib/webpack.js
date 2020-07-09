@@ -25,13 +25,17 @@ module.exports = class Webpack {
     traverse(ast,{
       ImportDeclaration({node}){
         // 拿到模块依赖在项目中的路径
-        // ./a.js
-        // ./src/index.js
+        // ./src/
         //path.dirname(entryFile)
-        
-        console.log(node.source.value);
+        const nodeSource = node.source.value  //./a.js
+        const newPath = "./"+path.join(path.dirname(entryFile),nodeSource)
+        yilai[nodeSource] = newPath
       }
     })
+    console.log(yilai);
+
+    // 处理内容 转换代码
+    
   }
   file() {}
 };
