@@ -1,5 +1,6 @@
 const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
+const CopyrightWebpackPlugin = require("./myPlugin/copyright-webpack-plugin")
 
 module.exports = {
   entry: "./src/index.js",
@@ -36,5 +37,5 @@ module.exports = {
       }
     ],
   },
-  plugins: [new htmlWebpackPlugin()],
+  plugins: [new htmlWebpackPlugin(),new CopyrightWebpackPlugin({name:'赵小莉在学习写webpack plugin'})],
 };

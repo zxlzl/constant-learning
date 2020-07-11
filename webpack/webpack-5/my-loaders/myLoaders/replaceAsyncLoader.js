@@ -3,7 +3,6 @@
 // loader本质是一个函数 但是不能是箭头函数
 // loader处理模块
 module.exports = function (source) {
-  console.log(this,this.query);
   // 一定要有返回值
   // return source.replace("webpack", this.query.name );
   // this.callback(
@@ -16,5 +15,5 @@ module.exports = function (source) {
   const result = source.replace("webpack", this.query.name );
   // this.async 返回的callback = this.callback
     return callback(null, result)
-  }, 3000);
+  }, 1000);
 };
