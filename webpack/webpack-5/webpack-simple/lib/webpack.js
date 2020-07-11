@@ -8,10 +8,31 @@ module.exports = class Webpack {
     const { entry, output } = options;
     this.entry = entry;
     this.output = output;
+    this.modules = []
   }
   run() {
     // 启动函数
-    this.parse(this.entry);
+    const info = this.parse(this.entry);
+    this.modules.push(info)
+    for (let i = 0; i < this.modules.length; i++) {
+      const item = this.modules[i];
+      const {yilai} = item
+      if (yilai) {
+        for (const j in yilai) {
+          this.modules.push(this.parse(yilai[j]))
+        }
+      }
+    }
+
+    // 数组结构转换
+    const obj = {}
+    this.modules.forEach(item=>{
+      obj[item.entryFile] = {
+        yilai:item.yilai,
+        code:item.code
+      }
+    })
+    this.file(obj)
   }
   parse(entryFile) {
     // console.log(entryFile);
@@ -24,7 +45,7 @@ module.exports = class Webpack {
     const yilai = {}
     traverse(ast,{
       ImportDeclaration({node}){
-        console.log(node);
+        // 拿到一个一个节点 node
         // 拿到模块依赖在项目中的路径
         // ./src/
         //path.dirname(entryFile)
@@ -45,10 +66,29 @@ module.exports = class Webpack {
       // 处理成标准代码
       presets:["@babel/preset-env"]
     })
-    // console.log(code);
     return {
       entryFile,yilai,code
     }
   }
-  file() {}
+  file(code) {
+    // this.output.path this.output.filename
+    const filepath = path.join(this.output.path,this.output.filename)
+    const newCode = JSON.stringify(code)
+    console.log(code);
+    const bundle = `(function(graph){
+      function require(module){
+        function localRequire(relativePath){
+          return require(graph[module].yilai[relativePath])
+          // module['a.js]
+        }
+        var exports= {};
+        (function(require,exports,code){
+          eval(code)
+        })(localRequire,exports,graph[module].code)
+        return exports
+      }   
+      require('${this.entry}') 
+    })(${newCode})`
+    fs.writeFileSync(filepath,bundle,'utf-8')
+  }
 };
