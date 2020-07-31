@@ -1,0 +1,7 @@
+<!--pages/page2/page2.wxml-->
+
+<!-- <button type="primary" open-type="contact">联系客服</button> -->
+
+<!-- <button type="primary" bindtap="btnScanCode">扫码识别</button> -->
+<!-- <button type="primary" bindtap="btnGetLocation">位置获取</button> -->
+<button type="primary" bindtap="btnGetWeRunData">获取微信运动数据</button>

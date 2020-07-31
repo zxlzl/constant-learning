@@ -1,0 +1,2 @@
+<!--miniprogram/pages/cloudtest/cloudtest.wxml-->
+<button type="primary" bindtap="btnCallCloud">调用云函数</button>
