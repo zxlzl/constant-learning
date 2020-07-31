@@ -8,16 +8,27 @@ Page({
 
   },
   btnCallCloud:function(){
-    wx.cloud.callFunction({
-      name: "testsum",
-      data: {
-        a: 19,
-        b: 29
-      },
-      success: function(res){
-        console.log(res)
+    wx.getWeRunData({
+      success: (res)=>{
+        let cloudId = res.cloudID
+        wx.cloud.callFunction({
+          name: "getwerun",
+          data: {
+            werundata: wx.cloud.CloudID(cloudId)
+          }
+        })
       }
     })
+    // wx.cloud.callFunction({
+    //   name: "testsum",
+    //   data: {
+    //     a: 19,
+    //     b: 29
+    //   },
+    //   success: function(res){
+    //     console.log(res)
+    //   }
+    // })
   },
 
   /**
