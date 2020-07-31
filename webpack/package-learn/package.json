@@ -1,0 +1,30 @@
+{
+  "name": "package-learn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "predev": "npm run clean",
+    "dev": "webpack",
+    "postdev": "rimraf ./test",
+    "test": "mkdir zxl",
+    "clean": "rimraf ./dist",
+    "dev1": "web=test webpack --params=123 --name=zxl --zxl ./index.js --env.production",
+    "build": "cross-env NODE_ENV=production webpack"
+  },
+  "bin": {
+    "zxl": "./index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "minimist": "^1.2.5"
+  }
+}
