@@ -1,22 +1,23 @@
-const Koa = require('koa')
-const Router = require('koa-router')
-const static = require('koa-static')
-const bodyParser = require('koa-bodyparser');
-const app = new Koa()
-app.use(bodyParser())
-const router = new Router()
-app.use(static(__dirname + '/'))
+const Koa = require("koa");
+const Router = require("koa-router");
+const static = require("koa-static");
+const bodyParser = require("koa-bodyparser");
+const app = new Koa();
+app.use(bodyParser());
+const router = new Router();
+app.use(static(__dirname + "/"));
 
-const config = require('./conf')
-const wechat = require('co-wechat')
+const conf = require("./conf");
 
-router.all('/wechat',wechat(conf).middleware(
-  async message=>{
-    
-  }
-))
+const wechat = require("co-wechat");
 
-
+router.all(
+  "/wechat",
+  wechat(conf).middleware(async message => {
+    console.log("wechat", message);
+    return "大妞妞是我最爱的猪宝宝!" + message.Content;
+  })
+);
 
 app.use(router.routes()); /*启动路由*/
 app.use(router.allowedMethods());
