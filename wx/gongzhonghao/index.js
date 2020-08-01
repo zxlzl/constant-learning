@@ -10,6 +10,12 @@ app.use(static(__dirname + '/'))
 const config = require('./conf')
 const wechat = require('co-wechat')
 
+router.all('/wechat',wechat(conf).middleware(
+  async message=>{
+    
+  }
+))
+
 
 
 app.use(router.routes()); /*启动路由*/
