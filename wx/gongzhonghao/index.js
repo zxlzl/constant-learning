@@ -7,7 +7,8 @@ app.use(bodyParser())
 const router = new Router()
 app.use(static(__dirname + '/'))
 
-
+const config = require('./conf')
+const wechat = require('co-wechat')
 
 
 
