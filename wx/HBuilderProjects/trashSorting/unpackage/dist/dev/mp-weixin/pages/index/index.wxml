@@ -1,0 +1,1 @@
+<view><button type="primary" data-event-opts="{{[['tap',[['getImage',['$event']]]]]}}" bindtap="__e">拍照或从相册选择</button><view><image src="{{imagepath}}" mode="widthfix"></image><view>{{''+keyword+''}}</view><block wx:if="{{classfy}}"><view>{{''+(classfy.matched?classfy.matched.typename:"")+''}}</view></block></view></view>
