@@ -2,7 +2,7 @@ const Koa = require("koa");
 const Router = require("koa-router");
 const static = require("koa-static");
 const bodyParser = require("koa-bodyparser");
-const axios = require("axios")
+const axios = require("axios");
 const app = new Koa();
 app.use(bodyParser());
 const router = new Router();
@@ -14,17 +14,17 @@ const wechat = require("co-wechat");
 
 router.all(
   "/wechat",
-  wechat(conf).middleware(async message => {
+  wechat(conf).middleware(async (message) => {
     console.log("wechat", message);
     return "大妞妞是我最爱的猪宝宝!" + message.Content;
   })
 );
 
 const tokenCache = {
-  access_token: '',
+  access_token: "",
   updateTime: Date.now(),
-  expires_in: 7200
-}
+  expires_in: 7200,
+};
 
 // router.get('/getToken',async ctx=>{
 //   const url = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${conf.appid}&secret=${conf.appsecret}`
@@ -42,14 +42,26 @@ const tokenCache = {
 //   ctx.body = res.data
 // })
 
-const WechatAPI = require('co-wechat-api')
-const api = new WechatAPI(conf.appid,conf.appsecret)
+const { ServerToken } = require("./mongoose");
+const WechatAPI = require("co-wechat-api");
+const api = new WechatAPI(
+  conf.appid,
+  conf.appsecret,
+  async function () {
+    return await ServerToken.findOne();
+  },
+  async function (token) {
+    const res = await ServerToken.updateOne({},token,{
+      upsert: true
+    })
+  }
+);
 
-router.get('/getFollowers',async ctx=>{
-  let res = await api.getFollowers()
-  res = await api.batchGetUsers(res.data.openid,'zh-CN')
-  ctx.body = res
-})
+router.get("/getFollowers", async (ctx) => {
+  let res = await api.getFollowers();
+  res = await api.batchGetUsers(res.data.openid, "zh-CN");
+  ctx.body = res;
+});
 
 app.use(router.routes()); /*启动路由*/
 app.use(router.allowedMethods());
