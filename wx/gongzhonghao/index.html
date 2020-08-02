@@ -17,6 +17,8 @@
 <body>
     <div id="app">
         <button @click='click'>Click11</button>
+        <button @click='getToken'>获取token</button>
+        <button @click='getFollowers'>获取用户列表</button>
     </div>
     <script>
         var app = new Vue({
@@ -24,6 +26,14 @@
             methods: {
                 click: function () {
                     console.log('click')
+                },
+                async getToken(){
+                    const res = await axios.get('/getToken')
+                    console.log(res);
+                },
+                async getFollowers(){
+                    const res = await axios.get('/getFollowers')
+                    console.log(res);
                 }
             },
             mounted: function () {
