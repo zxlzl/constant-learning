@@ -26,20 +26,29 @@ const tokenCache = {
   expires_in: 7200
 }
 
-router.get('/getToken',async ctx=>{
-  const url = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${conf.appid}&secret=${conf.appsecret}`
-  const res = await axios.get(url)
-  Object.assign(tokenCache,res.data,{
-    updateTime: Date.now()
-  })
-  ctx.body = res.data
-})
+// router.get('/getToken',async ctx=>{
+//   const url = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${conf.appid}&secret=${conf.appsecret}`
+//   const res = await axios.get(url)
+//   Object.assign(tokenCache,res.data,{
+//     updateTime: Date.now()
+//   })
+//   ctx.body = res.data
+// })
+
+// router.get('/getFollowers',async ctx=>{
+//   const url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${tokenCache.access_token}`
+//   const res = await axios.get(url)
+//   console.log('getFollowers',res.data);
+//   ctx.body = res.data
+// })
+
+const WechatAPI = require('co-wechat-api')
+const api = new WechatAPI(conf.appid,conf.appsecret)
 
 router.get('/getFollowers',async ctx=>{
-  const url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${tokenCache.access_token}`
-  const res = await axios.get(url)
-  console.log('getFollowers',res.data);
-  ctx.body = res.data
+  let res = await api.getFollowers()
+  res = await api.batchGetUsers(res.data.openid,'zh-CN')
+  ctx.body = res
 })
 
 app.use(router.routes()); /*启动路由*/
