@@ -5,7 +5,36 @@ Page({
    * 页面的初始数据
    */
   data: {
+    cover_url: '',
+    title: ''
 
+  },
+  btnCallCloud1:function(){
+    wx.scanCode({
+      onlyFromCamera: true,
+      success: (res)=>{
+        console.log(res.result)
+        // let isbn = res.result
+        let isbn = 9787115275790
+        this.getBookData(isbn)
+      }
+    })
+  },
+  getBookData: function(isbn){
+    let that = this
+    wx.cloud.callFunction({
+      name: "getbook",
+      data: {
+        isbn: isbn
+      },
+      success: function (res) {
+        let data = {
+          title: res.result.res.title,
+          cover_url: res.result.res.cover_url
+        }
+        that.setData(data)
+      }
+    })
   },
   btnCallCloud:function(){
     wx.getWeRunData({
