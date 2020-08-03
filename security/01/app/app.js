@@ -9,7 +9,6 @@ const views = require("koa-views");
 const query = require("./db");
 console.log(query);
 
-
 app.keys = ["some secret hurr"];
 const CONFIG = {
   key: "kaikeba:sess",
@@ -22,7 +21,7 @@ const CONFIG = {
   /** (boolean) automatically commit headers (default true) */
   overwrite: false,
   /** (boolean) can overwrite or not (default true) */
-  httpOnly: false,
+  httpOnly: true,
   /** (boolean) httpOnly or not (default true) */
   signed: false,
   /** (boolean) signed or not (default true) */
@@ -41,61 +40,73 @@ app.use(
 
 app.use(async (ctx, next) => {
   await next();
-  // 参数出现在HTML内容或属性浏览器会拦截
-  // ctx.set("X-XSS-Protection", 0);
-    // ctx.set('Content-Security-Policy', "default-src 'self'")
+  // 参数出现在HTML内容或属性浏览器会拦截 0不过滤
+  ctx.set("X-XSS-Protection", 0);
+  // ctx.set("Content-Security-Policy", "default-src 'self'");
   // ctx.set('X-FRAME-OPTIONS','DENY')
 
-  const referer = ctx.request.header.referer
-  console.log('referer:', referer)
+  // const referer = ctx.request.header.referer
+  // console.log('referer:', referer)
 });
 
-const helmet = require('koa-helmet')
-app.use(helmet())
+// const helmet = require('koa-helmet')
+// app.use(helmet())
 
-router.get('/', async(ctx)=>{
-  res = await query('select * from test.text')
+
+// const xss = require('xss')
+// let html = xss('<h1 id="title">XSS Demo</h1><script>alert("xss");</script>')
+router.get("/", async (ctx) => {
+  res = await query("select * from test.text");
   // ctx.set('X-FRAME-OPTIONS','DENY')
-  await ctx.render('index',{
+  await ctx.render("index", {
     from: ctx.query.from,
+    // from: html,
     username: ctx.session.username,
-    text: res[0].text
-  })
-})
+    text: res[0].text,
+  });
+});
 
-router.get('/login', async(ctx)=>{
-  await ctx.render('login')
-})
-router.post('/login',async(ctx)=>{
-  const {username, password} = ctx.request.body
+function escape(str) {
+  str = str.replace(/&/g, "&amp;");
+  str = str.replace(/</g, "&lt;");
+  str = str.replace(/>/g, "&gt;");
+  str = str.replace(/"/g, "&quto;");
+  str = str.replace(/'/g, "&#39;");
+  str = str.replace(/`/g, "&#96;");
+  str = str.replace(/\//g, "&#x2F;");
+  return str;
+}
+router.get("/login", async (ctx) => {
+  await ctx.render("login");
+});
+router.post("/login", async (ctx) => {
+  const { username, password } = ctx.request.body;
 
   let sql = `
   SELECT *
     FROM test.user
     WHERE username = '${username}'
     AND password = '${password}'
-  `
+  `;
 
-  console.log('sql:',sql);
-  res = await query(sql)
-  console.log('db', res);
+  console.log("sql:", sql);
+  res = await query(sql);
+  console.log("db", res);
   if (res.length !== 0) {
-    ctx.redirect('/?from=china')
-    ctx.session.username = ctx.request.body.username
+    ctx.redirect("/?from=china");
+    ctx.session.username = ctx.request.body.username;
   }
-})
+});
 
-router.post('/updateText', async (ctx)=>{
-  text = ctx.request.body.text
+router.post("/updateText", async (ctx) => {
+  text = ctx.request.body.text;
 
-    res = await query(`REPLACE INTO test.text (id,text) VALUES(1,'${text}');`)
-    console.log('mysql:', ctx.request.body);
-    ctx.redirect('/')
-})
+  res = await query(`REPLACE INTO test.text (id,text) VALUES(1,'${text}');`);
+  console.log("mysql:", ctx.request.body);
+  ctx.redirect("/");
+});
 
-app.use(router.routes())
-app.use(router.allowedMethods())
+app.use(router.routes());
+app.use(router.allowedMethods());
 
-module.exports = app
-
-
+module.exports = app;
