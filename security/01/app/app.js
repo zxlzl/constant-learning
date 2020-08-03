@@ -45,8 +45,8 @@ app.use(async (ctx, next) => {
     // const referer = ctx.request.header.referer
     // console.log('Referer:', referer)
 
-    // const referer = ctx.request.header.referer
-    // console.log('Referer:', referer)
+    const referer = ctx.request.header.referer
+    console.log('Referer:', referer)
 
 })
 // const helmet = require('koa-helmet')
@@ -97,6 +97,18 @@ router.post('/login', async (ctx) => {
     `
     console.log('sql', sql)
     res = await query(sql)
+
+
+    // 正确写法
+    // let sql = `
+    // SELECT *
+    // FROM test.user
+    // WHERE username = ?
+    // AND password = ?
+    // `
+    // console.log('sql', sql)
+    
+    // res = await query(sql,[username, password])
     console.log('db', res)
     if (res.length !== 0) {
         ctx.redirect('/?from=china')
