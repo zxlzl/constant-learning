@@ -7,13 +7,13 @@ const querystring = require("querystring");
 
 app.use(static(__dirname + "/"));
 const config = {
-  client_id: "73a4f730f2e8cf7d5fcf",
-  client_secret: "74bde1aec977bd93ac4eb8f7ab63352dbe03ce48",
+  client_id: "6b249c79e1ff49063883",
+  client_secret: "cacc094898d5ec2a8d9ba77a6402cb77b1de859d",
 };
 
 router.get("/github/login", async (ctx) => {
   var dataStr = new Date().valueOf();
-  //重定向到认证接口,并配置参数
+  //重定向到认证接口,并配置参数 
   var path = "https://github.com/login/oauth/authorize";
   path += "?client_id=" + config.client_id;
 
@@ -29,6 +29,7 @@ router.get("/auth/github/callback", async (ctx) => {
     client_secret: config.client_secret,
     code: code,
   };
+  // 用code获取令牌
   let res = await axios.post(
     "https://github.com/login/oauth/access_token",
     params
