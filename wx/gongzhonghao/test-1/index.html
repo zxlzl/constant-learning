@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0-0/axios.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/qs/6.9.4/qs.js"></script>
+    <script src="http://res2.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+    <style>
+        /* .cube-btn {
+            margin: 10px 0;
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button @click='click'>Click11</button>
+        <button @click='getToken'>获取token</button>
+        <button @click='getFollowers'>获取用户列表</button>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            methods: {
+                click: function () {
+                    console.log('click')
+                },
+                async getToken(){
+                    const res = await axios.get('/getToken')
+                    console.log(res);
+                },
+                async getFollowers(){
+                    const res = await axios.get('/getFollowers')
+                    console.log(res);
+                }
+            },
+            mounted: function () {
+
+            },
+        });
+    </script>
+</body>
+
+</html>
