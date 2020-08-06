@@ -17,30 +17,30 @@ router.all('/wechat', wechat(conf).middleware(
     }
 ))
 
-// const tokenCache = {
-//     access_token:'',
-//     updateTime:Date.now(),
-//     expires_in:7200
-// }
+const tokenCache = {
+    access_token:'',
+    updateTime:Date.now(),
+    expires_in:7200
+}
 
-// router.get('/getTokens',async ctx => {
-//     const wxDomain =  `https://api.weixin.qq.com`
-//     const path = `/cgi-bin/token`
-//     const param = `?grant_type=client_credential&appid=${conf.appid}&secret=${conf.appsecret}`
-//     const url = wxDomain + path + param
-//     const res = await axios.get(url)
-//     Object.assign(tokenCache,res.data,{
-//         updateTime:Date.now()
-//     })
-//     ctx.body = res.data
-// })
+router.get('/getTokens',async ctx => {
+    const wxDomain =  `https://api.weixin.qq.com`
+    const path = `/cgi-bin/token`
+    const param = `?grant_type=client_credential&appid=${conf.appid}&secret=${conf.appsecret}`
+    const url = wxDomain + path + param
+    const res = await axios.get(url)
+    Object.assign(tokenCache,res.data,{
+        updateTime:Date.now()
+    })
+    ctx.body = res.data
+})
 
-// router.get('/getFollowers',async ctx => {
-//     const url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${tokenCache.access_token}`
-//     const res = await axios.get(url)
-//     console.log('getFollowers:',res)
-//     ctx.body = res.data
-// })
+router.get('/getFollowers',async ctx => {
+    const url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${tokenCache.access_token}&next_openid=`
+    const res = await axios.get(url)
+    console.log('getFollowers:',res)
+    ctx.body = res.data
+})
 const { ServerToken,ClientToken } = require('./mongoose')
 
 const WechatAPI = require('co-wechat-api')
