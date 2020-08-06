@@ -114,10 +114,6 @@ router.get('/getJsConfig',async ctx => {
 })
 
 
-
-
-
-
 app.use(router.routes()); /*启动路由*/
 app.use(router.allowedMethods());
 app.listen(3000);
