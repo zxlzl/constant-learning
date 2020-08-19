@@ -1,0 +1,1 @@
+let str: string = '开课吧'
